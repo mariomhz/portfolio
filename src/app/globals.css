@@ -304,6 +304,15 @@ a {
     margin-top: 1em;
 }
 
+.credit {
+    font-family: var(--font-roboto-mono), monospace;
+    font-size: 0.75em;
+    letter-spacing: 0.03em;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 0.5em;
+    line-height: 1.5;
+}
+
 .portrait .portrait-container {
     position: relative;
     width: 100%;
