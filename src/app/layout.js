@@ -4,7 +4,7 @@ import "./globals.css";
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["300", "400", "700"],
 });
 
 const robotoMono = Roboto_Mono({

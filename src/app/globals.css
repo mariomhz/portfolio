@@ -212,13 +212,12 @@ section.projects {
 }
 
 .role {
-    font-family: var(--font-roboto-mono), monospace;
-    font-size: 16px;
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    line-height: 1.3;
+    font-family: var(--font-montserrat), sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.15;
     text-transform: none;
-    margin-top: 1em;
+    margin-top: 12px;
 }
 
 .location {
@@ -228,7 +227,7 @@ section.projects {
     letter-spacing: 0.05em;
     line-height: 1.4;
     color: rgba(255, 255, 255, 0.6);
-    margin-top: 0.75em;
+    margin-top: 6px;
     text-transform: uppercase;
 }
 
@@ -374,11 +373,13 @@ a {
     }
 
     .role {
-        font-size: 20px;
+        font-size: 26px;
+        margin-top: 14px;
     }
 
     .location {
         font-size: 12px;
+        margin-top: 8px;
     }
 
     .title {
@@ -452,11 +453,13 @@ a {
     }
 
     .role {
-        font-size: 26px;
+        font-size: 32px;
+        margin-top: 18px;
     }
 
     .location {
         font-size: 13px;
+        margin-top: 9px;
     }
 }
 
@@ -532,17 +535,17 @@ a {
     }
 
     .role {
-        font-size: 36px;
-        font-weight: 400;
-        letter-spacing: 0.02em;
-        margin-top: 1em;
+        font-size: 44px;
+        font-weight: 300;
+        letter-spacing: -0.01em;
+        margin-top: 20px;
     }
 
     .location {
         font-size: 14px;
         font-weight: 400;
         letter-spacing: 0.05em;
-        margin-top: 0.85em;
+        margin-top: 10px;
     }
 
     .nav {
