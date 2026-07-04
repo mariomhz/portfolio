@@ -30,23 +30,13 @@ const projects = [
   },
   {
     id: 3,
-    title: "EMBER",
-    description: "Fullstack habit tracker with NextAuth.js authentication, PostgreSQL persistence via Prisma ORM, and REST API routes for CRUD operations. Includes a guest mode using localStorage as a fallback.",
-    url: "https://ember-eight-psi.vercel.app/",
-    github: "https://github.com/mariomhz/ember",
-    image: "/portraits/gradient5.jpg",
-    screenshot: "/projects/ember-screenshot.jpg",
-    tags: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "NextAuth.js", "Tailwind CSS"],
-  },
-  {
-    id: 4,
     title: "MICULTURA",
     description: "Fullstack cultural events platform for Tenerife — my TFC (Trabajo Fin de Ciclo) for the DAW programme. Next.js 16 App Router frontend with an interactive Leaflet map and FullCalendar view, paired with a Spring Boot REST API featuring JWT auth, refresh-token rotation, and PostgreSQL persistence.",
     url: "https://pi-25-26-frontend-opal.vercel.app/",
     github: "https://github.com/mariomhz/pi-25-26-frontend-opal",
     image: "/portraits/gradient6.png",
     tags: ["Next.js", "TypeScript", "Spring Boot", "PostgreSQL", "JWT Auth", "Leaflet", "Tailwind CSS"],
-  },
+  }
 ];
 
 const skillCategories = [
