@@ -119,7 +119,7 @@ export default function Home() {
         <section className="hero">
           <div className="title">
             <h1>José Mario Hernández</h1>
-            <p className="role">Frontend & Fullstack Developer: React, Next.js & Spring Boot</p>
+            <p className="role">Fullstack & creative developer<br />Building interfaces where motion, code, and language meet.</p>
           </div>
 
           <div className="nav">

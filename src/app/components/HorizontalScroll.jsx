@@ -41,12 +41,14 @@ const projects = [
 
 const skillCategories = [
   {
-    title: "Frontend",
+    title: "Web & Interfaces",
     skills: [
       "JavaScript (ES2025)", "TypeScript", "React", "Next.js", "Vue",
-      "HTML5 & CSS3", "Tailwind CSS", "GSAP & Three.js",
-      "Responsive Design & Accessibility", "Web Performance & SEO",
-      "State Management", "Testing (Jest, RTL, Cypress)"
+      "HTML5 & CSS3", "Tailwind CSS",
+      "Responsive Design & Accessibility",
+      "Web Performance & SEO",
+      "State Management",
+      "Testing (Jest, RTL, Cypress)"
     ]
   },
   {
@@ -54,7 +56,21 @@ const skillCategories = [
     skills: [
       "Node.js", "REST APIs & JWT Auth", "Spring Boot",
       "PostgreSQL & MySQL", "Prisma ORM", "Docker",
-      "Git & CI/CD", "Figma"
+      "Git & CI/CD"
+    ]
+  },
+  {
+    title: "Creative & Motion",
+    skills: [
+      "Creative coding & generative art",
+      "Three.js & WebGL",
+      "GLSL shaders",
+      "GSAP",
+      "Processing (Java)",
+      "p5.js",
+      "TouchDesigner (learning)",
+      "Blender (learning)",
+      "Figma"
     ]
   }
 ];

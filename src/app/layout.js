@@ -14,11 +14,11 @@ const robotoMono = Roboto_Mono({
 });
 
 export const metadata = {
-  title: "MÁRIO HERNÁNDEZ / FRONTEND & FULLSTACK DEVELOPER",
-  description: "Frontend & fullstack developer specializing in React, Next.js, and Spring Boot. Based in Europe.",
+  title: "MÁRIO HERNÁNDEZ / FULLSTACK & CREATIVE DEVELOPER",
+  description: "Fullstack & creative developer building interfaces where motion, code, and language meet. Based in Europe.",
   openGraph: {
-    title: "MÁRIO HERNÁNDEZ / FRONTEND & FULLSTACK DEVELOPER",
-    description: "Frontend & fullstack developer specializing in React, Next.js, and Spring Boot. Based in Europe.",
+    title: "MÁRIO HERNÁNDEZ / FULLSTACK & CREATIVE DEVELOPER",
+    description: "Fullstack & creative developer building interfaces where motion, code, and language meet. Based in Europe.",
     type: "website",
   },
 };
