@@ -15,10 +15,10 @@ const robotoMono = Roboto_Mono({
 
 export const metadata = {
   title: "MÁRIO HERNÁNDEZ / FULLSTACK & CREATIVE DEVELOPER",
-  description: "Fullstack & creative developer building interfaces where motion, code, and language meet. Based in Europe.",
+  description: "Fullstack & creative developer based in Europe. Fluent in eight spoken languages and a handful of programming ones.",
   openGraph: {
     title: "MÁRIO HERNÁNDEZ / FULLSTACK & CREATIVE DEVELOPER",
-    description: "Fullstack & creative developer building interfaces where motion, code, and language meet. Based in Europe.",
+    description: "Fullstack & creative developer based in Europe. Fluent in eight spoken languages and a handful of programming ones.",
     type: "website",
   },
 };

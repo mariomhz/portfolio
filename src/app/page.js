@@ -119,7 +119,7 @@ export default function Home() {
         <section className="hero">
           <div className="title">
             <h1>José Mario Hernández</h1>
-            <p className="role">Fullstack & creative developer<br />Building interfaces where motion, code, and language meet.</p>
+            <p className="role">Fullstack & creative developer.<br />Fluent in eight spoken languages and a handful of programming ones — I like the parts where they overlap.</p>
           </div>
 
           <div className="nav">
