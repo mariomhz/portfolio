@@ -286,8 +286,10 @@ a {
 .creed {
     width: 78%;
     text-align: center;
+    font-family: var(--font-roboto-mono), monospace;
     font-style: italic;
-    line-height: 1.45;
+    font-size: 0.92em;
+    line-height: 1.5;
     color: rgba(255, 255, 255, 0.72);
     margin: 1.75em 0 2em;
 }
