@@ -143,11 +143,18 @@ export default function Home() {
         <section className="about">
           <div className="col intro">
             <p>Who am I?</p>
+            <blockquote className="creed">
+              &ldquo;To create is to bring something into existence that wasn&rsquo;t there before.&rdquo;
+              <cite>Rick Rubin, The Creative Act</cite>
+            </blockquote>
             <p>
-              I&apos;m a polyglot developer fluent in 8 languages, driven by a deep interest in breaking communication barriers, both human and digital. I design and build interactive experiences where clarity, purpose, and visual impact work together.
+              I believe technology is the tool I was given to create and I use to shape digital experiences.
             </p>
             <p>
-              I thrive in collaborative environments where I can work with people, not just for them. I speak Portuguese, Spanish, English, Italian, Catalan, French, Norwegian, and American Sign Language and that shapes how I think about accessibility, communication, and code.
+              I want to create work that is accessible, unique. I want to make websites more useful, more beautiful, more fun. I want to work with people, not for people, because I believe when humans think and work together we can achieve some pretty incredible stuff.
+            </p>
+            <p>
+              I speak Portuguese, Spanish, English, Italian, Catalan, French, Norwegian, and American Sign Language, which shapes how I think about breaking communication barriers, human and digital.
             </p>
           </div>
           <div className="col portrait">

@@ -283,6 +283,26 @@ a {
     margin-bottom: 0.5em;
 }
 
+.creed {
+    width: 78%;
+    text-align: center;
+    font-style: italic;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.72);
+    margin: 1.75em 0 2em;
+}
+
+.creed cite {
+    display: block;
+    font-style: normal;
+    font-family: var(--font-roboto-mono), monospace;
+    font-size: 0.7em;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 1em;
+}
+
 .portrait .portrait-container {
     position: relative;
     width: 100%;
@@ -600,6 +620,13 @@ a {
         width: 60%;
         text-align: center;
         margin-right: 5%;
+    }
+
+    .creed {
+        width: 52%;
+        margin-right: 5%;
+        margin-top: 2em;
+        margin-bottom: 2.25em;
     }
 
     .banner {
