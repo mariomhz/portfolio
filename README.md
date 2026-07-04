@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio
 
-## Getting Started
+The personal site of José Mario Hernández — frontend and fullstack developer, polyglot, based in Spain.
 
-First, run the development server:
+Built as a place to think about smooth motion, tactile scroll, and the feeling of a page reacting to you. Custom cursor with `mix-blend-mode: difference`, Lenis-driven smooth scroll, GSAP parallax, and a horizontal projects gallery.
+
+Live: [mariohdez.vercel.app](https://mariohdez.vercel.app)
+
+## Stack
+
+- Next.js 16 (App Router) + React 19
+- Lenis — smooth scroll
+- GSAP — parallax and motion
+- `@cursorify/react` — custom cursor
+- CSS Modules (no design system dependency, on purpose)
+
+## Run locally
 
 ```bash
+git clone https://github.com/mariomhz/portfolio.git
+cd portfolio
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open [localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Notes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+CSS Modules over a component library on purpose — the visual language should come from me, not from Tailwind or shadcn defaults. The cursor, parallax, and horizontal-scroll choices are the point of the site, not decoration.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+© José Mario Hernández
