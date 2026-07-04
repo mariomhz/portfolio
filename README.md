@@ -11,10 +11,10 @@ Live: [mariohdez.vercel.app](https://mariohdez.vercel.app)
 ## Stack
 
 - Next.js 16 (App Router) + React 19
-- Lenis — smooth scroll
-- GSAP — parallax and motion
-- `@cursorify/react` — custom cursor
-- CSS Modules (no design system dependency, on purpose)
+- Lenis 
+- GSAP 
+- `@cursorify/react` 
+- CSS Modules 
 
 ## Notes
 
