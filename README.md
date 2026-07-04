@@ -1,8 +1,10 @@
 # Portfolio
 
-The personal site of José Mario Hernández — frontend and fullstack developer, polyglot, based in Spain.
+My personal portfolio, the main project to showcase my work.
 
-Built as a place to think about smooth motion, tactile scroll, and the feeling of a page reacting to you. Custom cursor with `mix-blend-mode: difference`, Lenis-driven smooth scroll, GSAP parallax, and a horizontal projects gallery.
+Built as a digital experience where minimalism meets my creativity in an elegant, polished and refined website. 
+
+I added a custom cursor with `mix-blend-mode: difference`, used Lenis to smooth the scroll, added GSAP parallax, and a horizontal projects gallery.
 
 Live: [mariohdez.vercel.app](https://mariohdez.vercel.app)
 
@@ -14,20 +16,9 @@ Live: [mariohdez.vercel.app](https://mariohdez.vercel.app)
 - `@cursorify/react` — custom cursor
 - CSS Modules (no design system dependency, on purpose)
 
-## Run locally
-
-```bash
-git clone https://github.com/mariomhz/portfolio.git
-cd portfolio
-npm install
-npm run dev
-```
-
-Then open [localhost:3000](http://localhost:3000).
-
 ## Notes
 
-CSS Modules over a component library on purpose — the visual language should come from me, not from Tailwind or shadcn defaults. The cursor, parallax, and horizontal-scroll choices are the point of the site, not decoration.
+The modules of the website are its protagonists. The cursor, parallax, and horizontal-scroll choices are the point of the site, not just decoration.
 
 ---
 
