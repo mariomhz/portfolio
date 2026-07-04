@@ -200,8 +200,10 @@ export default function Home() {
               <h1 onClick={() => scrollToSection('banner')} style={{ cursor: 'none' }}>Contact</h1>
               <h1 onClick={scrollToTop} style={{ cursor: 'none' }}>Back to top</h1>
             </div>
-            <p>&copy; developed and designed by Mario Hernandez</p>
-            <p className="credit">All 3D art in the current website was created by me.</p>
+            <div className="credits">
+              <p>&copy; developed and designed by Mario Hernandez</p>
+              <p className="credit">All 3D art in the current website was created by me.</p>
+            </div>
           </div>
         </section>
       </div>
