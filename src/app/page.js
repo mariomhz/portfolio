@@ -148,7 +148,7 @@ export default function Home() {
               <cite>Rick Rubin, The Creative Act</cite>
             </blockquote>
             <p>
-              I believe technology is the tool I was given to create and I use to shape digital experiences.
+              I believe technology is the tool I was given to create and I use it to shape digital experiences.
             </p>
             <p>
               I want to create work that is accessible, unique. I want to make websites more useful, more beautiful, more fun. I want to work with people, not for people, because I believe when humans think and work together we can achieve some pretty incredible stuff.
