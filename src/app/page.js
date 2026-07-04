@@ -119,7 +119,8 @@ export default function Home() {
         <section className="hero">
           <div className="title">
             <h1>José Mario Hernández</h1>
-            <p className="role">Fullstack creative developer<br />based in Tenerife, Canary Islands.</p>
+            <p className="role">Fullstack creative developer</p>
+            <p className="location">based in Tenerife, Canary Islands.</p>
           </div>
 
           <div className="nav">
