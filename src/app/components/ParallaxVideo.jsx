@@ -1,43 +1,53 @@
 "use client";
 
 import React, { useRef, useEffect } from "react";
-import Lenis from "lenis";
+import { useLenis } from "../context/LenisContext";
 
 const lerp = (start, end, factor) => start + (end - start) * factor;
 
-const ParallaxVideo = ({ src, type = "video/mp4", autoPlay = true, loop = true, muted = true }) => {
+const ParallaxVideo = ({ src, poster, autoPlay = true, loop = true, muted = true }) => {
   const videoRef = useRef(null);
   const bounds = useRef(null);
   const currentTranslateY = useRef(0);
   const targetTranslateY = useRef(0);
   const rafId = useRef(null);
   const lenisRef = useRef(null);
+  const boundsInitialized = useRef(false);
+
+  const lenis = useLenis();
+  lenisRef.current = lenis;
 
   useEffect(() => {
+    let resizeTimer = null;
+
     const updateBounds = () => {
       if (videoRef.current) {
+        const currentLenis = lenisRef.current;
+        const scrollY = currentLenis ? currentLenis.scroll : window.scrollY;
         const rect = videoRef.current.getBoundingClientRect();
         bounds.current = {
-          top: rect.top + window.scrollY,
-          bottom: rect.bottom + window.scrollY,
+          top: rect.top + scrollY,
+          bottom: rect.bottom + scrollY,
         };
+        boundsInitialized.current = true;
       }
     };
 
-    updateBounds();
-    window.addEventListener("resize", updateBounds);
+    const handleResize = () => {
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(updateBounds, 150);
+    };
 
-    lenisRef.current = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    });
+    const animate = () => {
+      const currentLenis = lenisRef.current;
 
-    const animate = (time) => {
-      lenisRef.current.raf(time);
+      if (currentLenis && !boundsInitialized.current) {
+        updateBounds();
+      }
 
-      if (bounds.current) {
-        const relativeScroll = lenisRef.current.scroll - bounds.current.top;
-        targetTranslateY.current = relativeScroll * 0.2;
+      if (bounds.current && currentLenis && typeof currentLenis.scroll === 'number') {
+        const relativeScroll = currentLenis.scroll - bounds.current.top;
+        targetTranslateY.current = Math.max(-100, Math.min(100, relativeScroll * 0.2));
       }
 
       if (videoRef.current) {
@@ -46,34 +56,49 @@ const ParallaxVideo = ({ src, type = "video/mp4", autoPlay = true, loop = true, 
           targetTranslateY.current,
           0.1
         );
-
-        if (Math.abs(currentTranslateY.current - targetTranslateY.current) > 0.01) {
-          videoRef.current.style.transform = `translateY(${currentTranslateY.current}px) scale(1.25)`;
-        }
+        videoRef.current.style.transform = `translateY(${currentTranslateY.current}px) scale(1.25)`;
       }
 
       rafId.current = requestAnimationFrame(animate);
     };
 
+    window.addEventListener("resize", handleResize);
     rafId.current = requestAnimationFrame(animate);
 
     return () => {
-      window.removeEventListener("resize", updateBounds);
+      if (resizeTimer) clearTimeout(resizeTimer);
+      window.removeEventListener("resize", handleResize);
       if (rafId.current) cancelAnimationFrame(rafId.current);
     };
   }, []);
+
+  const handleLoadedData = () => {
+    if (videoRef.current) {
+      const currentLenis = lenisRef.current;
+      const scrollY = currentLenis ? currentLenis.scroll : window.scrollY;
+      const rect = videoRef.current.getBoundingClientRect();
+      bounds.current = {
+        top: rect.top + scrollY,
+        bottom: rect.bottom + scrollY,
+      };
+      boundsInitialized.current = true;
+    }
+  };
 
   return (
     <video
       ref={videoRef}
       src={src}
-      type={type}
+      poster={poster}
       autoPlay={autoPlay}
       loop={loop}
       muted={muted}
       playsInline
+      onLoadedData={handleLoadedData}
       style={{
-        willChange: "transform",
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
         transform: "translateY(0) scale(1.25)",
       }}
     />

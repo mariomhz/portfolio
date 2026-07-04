@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import ParallaxImage from "./components/ParallaxImage";
+import ParallaxVideo from "./components/ParallaxVideo";
 import HorizontalScroll from "./components/HorizontalScroll";
 import { LenisProvider } from "./context/LenisContext";
 
@@ -152,7 +153,7 @@ export default function Home() {
           <div className="col portrait">
             <div className="portrait-container">
               <div className="img">
-                <ParallaxImage src="/portraits/gradient3.jpg" alt="" />
+                <ParallaxVideo src="/videos/fuzzy.mp4" poster="/videos/fuzzy-poster.jpg" />
               </div>
             </div>
           </div>
