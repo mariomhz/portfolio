@@ -18,7 +18,7 @@ Live: [mariohdez.vercel.app](https://mariohdez.vercel.app)
 
 ## Notes
 
-The modules of the website are its protagonists. The cursor, parallax, and horizontal-scroll choices are the point of the site, not just decoration.
+The modules of the website are its protagonists. The cursor, parallax, and horizontal-scroll choices are not just decoration but the main point of the site.
 
 ---
 
