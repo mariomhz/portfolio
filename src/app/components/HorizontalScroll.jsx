@@ -35,6 +35,7 @@ const projects = [
     url: "https://pi-25-26-frontend-opal.vercel.app/",
     github: "https://github.com/mariomhz/pi-25-26-frontend-opal",
     image: "/portraits/gradient6.png",
+    screenshot: "/projects/micultura-screenshot.jpg",
     tags: ["Next.js", "TypeScript", "Spring Boot", "PostgreSQL", "JWT Auth", "Leaflet", "Tailwind CSS"],
   }
 ];
