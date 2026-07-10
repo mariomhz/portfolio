@@ -175,7 +175,7 @@ export default function Home() {
             <p>GET IN TOUCH WITH ME!</p>
             <p className="subtitle">I&apos;m always open to collaborating on new projects.</p>
             <div className="buttons">
-              <a href="https://www.linkedin.com/in/josemariohernandez" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.linkedin.com/in/mariohrdezc" target="_blank" rel="noopener noreferrer">
                 LinkedIn
               </a>
               <a href="mailto:mariohrdezdeveloper@gmail.com">
@@ -184,7 +184,7 @@ export default function Home() {
               <a href="https://github.com/mariomhz" target="_blank" rel="noopener noreferrer">
                 GitHub
               </a>
-              <a href="/resume.pdf" download>
+              <a href="/mario-hernandez-cv.pdf" download="Mario Hernandez CV.pdf">
                 Download CV
               </a>
             </div>
