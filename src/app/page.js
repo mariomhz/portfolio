@@ -202,7 +202,7 @@ export default function Home() {
             </div>
             <div className="credits">
               <p>&copy; developed and designed by Mario Hernandez</p>
-              <p className="credit">All 3D art in the current website was created by me.</p>
+              <p className="credit">3D art created by me.</p>
             </div>
           </div>
         </section>
