@@ -228,6 +228,7 @@ const HorizontalScroll = () => {
                   alt=""
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
+                  quality={90}
                   className={styles.gradientImage}
                 />
                 {project.screenshot && (
@@ -236,6 +237,7 @@ const HorizontalScroll = () => {
                     alt={"Screenshot of the " + project.title + " interface"}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
+                    quality={90}
                     className={styles.screenshotImage}
                   />
                 )}

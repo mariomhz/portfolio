@@ -249,7 +249,6 @@ a {
     font-size: 12px;
 }
 
-
 .about {
     display: flex;
     flex-direction: column;
@@ -677,7 +676,6 @@ a {
     }
 }
 
-
 .sr-only {
     position: absolute;
     width: 1px;
@@ -763,42 +761,9 @@ header:focus {
     margin-bottom: 0.5em;
 }
 
-.credential {
-    font-family: var(--font-roboto-mono), monospace;
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 0.05em;
-    line-height: 1.4;
-    color: rgba(255, 255, 255, 0.8);
-    margin-top: 14px;
-    text-transform: uppercase;
-}
-
-.languages {
-    font-family: var(--font-roboto-mono), monospace;
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 0.08em;
-    line-height: 1.4;
-    color: rgba(255, 255, 255, 0.85);
-    margin-top: 16px;
-    text-transform: uppercase;
-}
-
 .languages-count {
     color: #fff;
     font-weight: 700;
-}
-
-.availability {
-    font-family: var(--font-roboto-mono), monospace;
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 0.05em;
-    line-height: 1.4;
-    color: rgba(255, 255, 255, 0.6);
-    margin-top: 10px;
-    text-transform: uppercase;
 }
 
 .banner-copy h2 {
@@ -865,38 +830,6 @@ header:focus {
     .section-label {
         font-size: 14px;
         line-height: 1;
-    }
-
-    .credential {
-    font-family: var(--font-roboto-mono), monospace;
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 0.05em;
-    line-height: 1.4;
-    color: rgba(255, 255, 255, 0.8);
-    margin-top: 14px;
-    text-transform: uppercase;
-}
-
-.languages {
-    font-family: var(--font-roboto-mono), monospace;
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 0.08em;
-    line-height: 1.4;
-    color: rgba(255, 255, 255, 0.85);
-    margin-top: 16px;
-    text-transform: uppercase;
-}
-
-.languages-count {
-    color: #fff;
-    font-weight: 700;
-}
-
-.availability {
-        font-size: 13px;
-        margin-top: 14px;
     }
 }
 

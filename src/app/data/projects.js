@@ -77,6 +77,52 @@ export const projects = [
 
   {
     id: 2,
+    slug: "mosir",
+    title: "MOSIR",
+    year: "2026",
+    description: "A globe you can turn to see the world the way I read it: the eight languages I speak, marked on the cities they actually come from. Three.js over a Natural Earth GeoJSON sphere, with markers placed by real lat/long, a generated starfield and damped orbital controls.",
+    url: "https://mariomhz.github.io/mosir/",
+    github: "https://github.com/mariomhz/mosir",
+    image: "/portraits/gradient1.webp",
+    screenshot: "/projects/mosir-screenshot.webp",
+    screenshotWidth: 1600,
+    screenshotHeight: 1767,
+    tags: ["Three.js", "JavaScript", "WebGL", "HTML"],
+    role: "Solo project",
+    caseStudy: {
+      intro:
+        "I did not want my languages to be a line at the bottom of a CV. A list tells you a number. It does not tell you that each of these languages is attached to a place, and that the places are the point. So I built a globe you can turn, with the world marked the way I actually see it.",
+      sections: [
+        {
+          heading: "The idea",
+          body: [
+            "What I wanted to show with this project is how our planet feels to me: a world where certain places have a part of themselves within me. This is not a list of countries I have visited but rather a representation of the countries that reach me, and are a part of who I am because I speak the language they think in. This globe is my way of showing my love for coding and languages in a single project.",
+          ],
+        },
+        {
+          heading: "The markers are not random",
+          body: [
+            "The markers aren't at random locations, each one of them is the specific place that language actually entered my life. This globe is a portrait, not a dataset of random languages and places. I mention a little of my relationship with each language in each marker, which you can see by clicking on them.",
+          ],
+        },
+        {
+          heading: "How it works",
+          body: [
+            "The land masses come from Natural Earth GeoJSON, parsed and drawn as line segments onto a sphere of radius 2. GeoJSON gives you longitude and latitude in degrees, and Three.js wants x, y and z, so every coordinate goes through a spherical conversion before it becomes a point in the scene. The markers use that same conversion, which is what lets me place them by real lat and long instead of guessing.",
+            "On top of that there is a wireframe sphere for the grid, a solid inner sphere so you cannot see through to the far side, and a generated starfield of a thousand points for depth. Camera movement is OrbitControls with damping on and the zoom clamped between 3.5 and 5, so you can turn the globe and lean in, but you cannot fly off into space or end up inside the planet.",
+          ],
+        },
+        {
+          heading: "What’s next",
+          body: [
+            "I plan on making the globe more detailed and add interactive animations for a more refined experience. I also want to study optimization and make sure it renders correctly on all devices.",
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: 3,
     slug: "skyabove",
     title: "SKYABOVE",
     year: "2026",
@@ -138,52 +184,6 @@ export const projects = [
           body: [
             "The cache lives in memory on a single instance, which is fine now and would fall apart the moment it ran on two, so moving it somewhere shared is the first thing I would do if this ever had real traffic. I also want to persist it, so a cold start does not begin with nothing and leave the first visitor with no fallback if the API happens to be having a bad day.",
             "Beyond that I want to do more with the data I am already fetching. There is enough in the response to show delays and routes properly, and right now I am only using a fraction of it.",
-          ],
-        },
-      ],
-    },
-  },
-  {
-    id: 3,
-    slug: "mosir",
-    title: "MOSIR",
-    year: "2026",
-    description: "A globe you can turn to see the world the way I read it: the eight languages I speak, marked on the cities they actually come from. Three.js over a Natural Earth GeoJSON sphere, with markers placed by real lat/long, a generated starfield and damped orbital controls.",
-    url: "https://mariomhz.github.io/mosir/",
-    github: "https://github.com/mariomhz/mosir",
-    image: "/portraits/gradient1.webp",
-    screenshot: "/projects/mosir-screenshot.webp",
-    screenshotWidth: 1600,
-    screenshotHeight: 1767,
-    tags: ["Three.js", "JavaScript", "WebGL", "HTML"],
-    role: "Solo project",
-    caseStudy: {
-      intro:
-        "I did not want my languages to be a line at the bottom of a CV. A list tells you a number. It does not tell you that each of these languages is attached to a place, and that the places are the point. So I built a globe you can turn, with the world marked the way I actually see it.",
-      sections: [
-        {
-          heading: "The idea",
-          body: [
-            "What I wanted to show with this project is how our planet feels to me: a world where certain places have a part of themselves within me. This is not a list of countries I have visited but rather a representation of the countries that reach me, and are a part of who I am because I speak the language they think in. This globe is my way of showing my love for coding and languages in a single project.",
-          ],
-        },
-        {
-          heading: "The markers are not random",
-          body: [
-            "The markers aren't at random locations, each one of them is the specific place that language actually entered my life. This globe is a portrait, not a dataset of random languages and places. I mention a little of my relationship with each language in each marker, which you can see by clicking on them.",
-          ],
-        },
-        {
-          heading: "How it works",
-          body: [
-            "The land masses come from Natural Earth GeoJSON, parsed and drawn as line segments onto a sphere of radius 2. GeoJSON gives you longitude and latitude in degrees, and Three.js wants x, y and z, so every coordinate goes through a spherical conversion before it becomes a point in the scene. The markers use that same conversion, which is what lets me place them by real lat and long instead of guessing.",
-            "On top of that there is a wireframe sphere for the grid, a solid inner sphere so you cannot see through to the far side, and a generated starfield of a thousand points for depth. Camera movement is OrbitControls with damping on and the zoom clamped between 3.5 and 5, so you can turn the globe and lean in, but you cannot fly off into space or end up inside the planet.",
-          ],
-        },
-        {
-          heading: "What’s next",
-          body: [
-            "I plan on making the globe more detailed and add interactive animations for a more refined experience. I also want to study optimization and make sure it renders correctly on all devices.",
           ],
         },
       ],

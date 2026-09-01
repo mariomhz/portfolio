@@ -111,11 +111,8 @@ export default function Home() {
             <h1>José Mario Hernández</h1>
             <p className="role">Fullstack developer</p>
             <p className="location">
-              Tenerife, Canary Islands · remote or relocating
-            </p>
-            <p className="languages">
+              Tenerife, Canary Islands ·{" "}
               <span className="languages-count">8 languages</span>
-              <span aria-hidden="true"> / PT · ES · IT · EN · CA · FR · ASL · NO</span>
               <span className="sr-only">
                 : Portuguese, Spanish and Italian natively, English, Catalan,
                 French, American Sign Language and Norwegian
