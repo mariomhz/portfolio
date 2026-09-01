@@ -236,6 +236,11 @@
 
 .projectTitle a {
   color: inherit;
+  /* The global `a` rule sets 12px; the link has to take the heading's size. */
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
   text-decoration: none;
   transition: opacity 0.3s ease;
 }

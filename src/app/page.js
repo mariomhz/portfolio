@@ -111,7 +111,7 @@ export default function Home() {
             <h1>José Mario Hernández</h1>
             <p className="role">Fullstack developer</p>
             <p className="location">
-              Tenerife, Canary Islands · open to remote
+              Tenerife, Canary Islands · remote or relocating
             </p>
             <p className="languages">
               <span className="languages-count">8 languages</span>
@@ -200,7 +200,7 @@ export default function Home() {
             <div className="banner-copy">
               <h2 id="contact-heading">GET IN TOUCH WITH ME!</h2>
               <p className="subtitle">
-                Open to junior developer and technical support roles, remote or in Canarias, and always up for collaborating on new projects.
+                Open to junior developer and technical support roles. Remote, or on site anywhere: I am based in Tenerife and will relocate for the right offer. Always up for collaborating on new projects too.
               </p>
               <div className="buttons">
                 <a href="https://www.linkedin.com/in/mariohrdezc/" target="_blank" rel="noopener noreferrer">
