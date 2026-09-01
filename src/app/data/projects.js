@@ -118,7 +118,7 @@ export const projects = [
     slug: "micultura",
     title: "MICULTURA",
     year: "2026",
-    description: "Cultural events platform for Tenerife, built in a pair for our DAW final project. I owned the Spring Boot API: JWT auth with refresh-token rotation, filtering and pagination over PostgreSQL, and the seeding. On the Next.js App Router frontend I built the event catalogue, the Leaflet map and the FullCalendar view. The catalogue falls back to a cached snapshot when the free backend is asleep, so the demo still works.",
+    description: "Cultural events platform for Tenerife, built in a pair for our DAW final project. I owned the Spring Boot API: JWT auth with refresh-token rotation, filtering and pagination over PostgreSQL, and a natural-language event search that uses Gemini to pick from the real catalogue rather than generate answers. On the Next.js App Router frontend I built the event catalogue, the Leaflet map and the FullCalendar view. The catalogue falls back to a cached snapshot when the free backend is asleep, so the demo still works.",
     url: "https://micultura.vercel.app",
     github: "https://github.com/mariomhz/micultura-frontend",
     backend: "https://github.com/mariomhz/micultura-backend",
@@ -126,7 +126,7 @@ export const projects = [
     screenshot: "/projects/micultura-screenshot.webp",
     screenshotWidth: 1353,
     screenshotHeight: 1122,
-    tags: ["Next.js", "TypeScript", "Spring Boot", "PostgreSQL", "JWT Auth", "Leaflet", "Tailwind CSS"],
+    tags: ["Next.js", "TypeScript", "Spring Boot", "PostgreSQL", "JWT Auth", "Gemini API", "Leaflet", "Tailwind CSS"],
     role: "Two person team. I owned the backend and built the catalogue, map and calendar on the frontend.",
     caseStudy: {
       intro:
@@ -137,6 +137,15 @@ export const projects = [
           body: [
             "We could have built anything for the final project, and we chose to build something for the island we actually live on: one place to find the concerts, exhibitions, festivals and markets happening across Tenerife, instead of hunting through a different page for each one.",
             "It also meant the project had a real shape to it. Events have dates, prices, categories and locations, and every one of those turns into a decision about how you store it, how you filter it and how you show it. That was more interesting than inventing a problem to solve.",
+          ],
+        },
+        {
+          heading: "Search in plain Spanish, without letting the model invent events",
+          body: [
+            "You can ask the catalogue for things the way you would actually say them. Algo gratis este finde. Teatro barato en La Laguna. It reads the question, works out what you meant by the dates and the price and the mood, and comes back with real events and a line explaining why it picked them.",
+            "It works in three steps. First the API pulls the events that are actually eligible, active and happening between today and 120 days out, so the model is never reasoning about a stale catalogue. Then it builds a prompt that lists those events one per line with their id, title, date, weekday, category, location and price, and states today's date and weekday in Spanish so that este finde resolves to the right weekend. Gemini is asked for strict JSON, up to four event ids in order of relevance plus one sentence of reasoning, with the response constrained to application/json and the temperature down at 0.3 so it stays literal.",
+            "The decision I care about is what comes back. Gemini only returns ids and a sentence. It never returns event data. Those ids are then intersected with the candidate list and the events are read back out of the database, so what reaches the browser is always a real row with a real date and a real location. If the model invents an id, it simply does not match anything and quietly disappears. The model is allowed to choose. It is not allowed to author.",
+            "It also fails in a way you can read. No API key configured returns a 503 saying so rather than a stack trace, a response that will not parse as JSON returns a 502 and gets logged with the offending text, and an empty catalogue never calls the API at all.",
           ],
         },
         {

@@ -31,6 +31,7 @@ const skillCategories = [
     title: "Backend & Systems",
     skills: [
       "Spring Boot", ".NET", "Node.js", "REST APIs & JWT Auth",
+      "LLM APIs & Prompt Design",
       "MySQL & PostgreSQL", "Linux", "Docker",
       "Git & CI/CD"
     ]

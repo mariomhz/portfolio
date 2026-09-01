@@ -33,6 +33,8 @@ export const metadata = {
     "Next.js",
     "React",
     "Spring Boot",
+    "Gemini API",
+    "LLM integration",
     "Java",
     "C#",
     ".NET",
