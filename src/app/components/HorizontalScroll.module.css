@@ -370,12 +370,51 @@
     padding: 1rem;
   }
 
+  .projectCard {
+    /* The panel centres and clips, so a card taller than the panel loses the
+       top of its image. That is why the projects looked like they had
+       different image heights: the longest description pushed the most out of
+       view. */
+    max-height: 100%;
+  }
+
   .projectImageWrapper {
     width: 100%;
-    height: 40vh;
-    min-height: 40vh;
-    max-height: 40vh;
+    height: 32vh;
+    min-height: 32vh;
+    max-height: 32vh;
     flex: none;
+  }
+
+  .projectInfo {
+    gap: 0.85rem;
+    min-height: 0;
+  }
+
+  /* Descriptions vary a lot in length. Clamping keeps every card the same
+     shape on a phone, and the full text is on the case study page. */
+  .projectDescription {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-width: none;
+    /* Reserve the full four lines even when the text is shorter, so every card
+       is the same height and the images line up between projects. */
+    min-height: calc(4 * 1.6em);
+  }
+
+  /* Two rows of tags at most, so an eight tag project does not push the links
+     off the panel. */
+  /* Always exactly two rows: eight tags do not push the links off the panel,
+     and four tags do not make the card shorter than the others. Equal card
+     heights is what keeps the images aligned between projects. */
+  .projectTags {
+    min-height: 3.6rem;
+    max-height: 3.6rem;
+    overflow: hidden;
+    align-content: flex-start;
   }
 
   /* Mobile: Show screenshot by default when available, otherwise show gradient */
