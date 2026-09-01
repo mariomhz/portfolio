@@ -228,7 +228,7 @@ const HorizontalScroll = () => {
                   alt=""
                   fill
                   sizes={"(max-width: 768px) 100vw, (max-width: 1328px) calc((100vw - 192px) / 2), 568px"}
-                  quality={100}
+                  unoptimized
                   className={styles.gradientImage}
                 />
                 {project.screenshot && (

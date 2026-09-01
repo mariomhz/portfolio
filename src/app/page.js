@@ -187,7 +187,7 @@ export default function Home() {
           <section id="contact" className="banner" aria-labelledby="contact-heading">
             <div className="img">
               <ParallaxImage
-                src="/portraits/gradient2.webp"
+                src="/portraits/gradient2.avif"
                 alt=""
                 width={1300}
                 height={975}

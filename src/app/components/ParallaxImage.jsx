@@ -91,7 +91,7 @@ const ParallaxImage = ({ src, alt, width, height, priority = false }) => {
         height={height}
         priority={priority}
         sizes="125vw"
-        quality={100}
+        unoptimized
       />
     </div>
   );
