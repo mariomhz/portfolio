@@ -1,0 +1,170 @@
+.page {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 6rem 1.5rem 8rem;
+  color: white;
+}
+
+.back {
+  font-family: var(--font-roboto-mono), monospace;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.3s ease;
+}
+
+.back:hover {
+  color: white;
+}
+
+.header {
+  margin-bottom: 4rem;
+}
+
+.title {
+  font-family: var(--font-montserrat), sans-serif;
+  font-size: clamp(40px, 8vw, 76px);
+  font-weight: 400;
+  letter-spacing: -2px;
+  line-height: 1;
+  margin: 2.5rem 0 1.5rem;
+}
+
+/* Long-form copy has to opt out of the global uppercase 11px paragraph rule. */
+.intro,
+.body p,
+.decisions p {
+  font-family: var(--font-roboto-mono), monospace;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.75;
+  text-transform: none;
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.intro {
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 2.5rem;
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 1.5rem;
+  padding: 1.75rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.meta dt {
+  font-family: var(--font-roboto-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 0.5rem;
+}
+
+.meta dd {
+  font-family: var(--font-roboto-mono), monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1.75rem;
+}
+
+.links a {
+  font-family: var(--font-roboto-mono), monospace;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: white;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  transition: border-color 0.3s ease;
+}
+
+.links a:hover {
+  border-color: white;
+}
+
+/* The global img rule pins media absolutely; this one sits in the flow. */
+.shot {
+  margin: 0 0 4rem;
+  overflow: hidden;
+  background-color: #0a0a0a;
+}
+
+.shot img {
+  position: relative;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.section {
+  margin-bottom: 3.5rem;
+}
+
+.section h2 {
+  font-family: var(--font-montserrat), sans-serif;
+  font-size: clamp(22px, 3.5vw, 30px);
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  color: white;
+  margin-bottom: 1.25rem;
+}
+
+.body p + p {
+  margin-top: 1.25rem;
+}
+
+.decisions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.decisions h3 {
+  font-family: var(--font-roboto-mono), monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: white;
+  margin-bottom: 0.75rem;
+  padding-left: 1rem;
+  border-left: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.decisions li p {
+  padding-left: 1rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.footer {
+  padding-top: 3rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+@media (min-width: 769px) {
+  .page {
+    padding: 8rem 2rem 10rem;
+  }
+}

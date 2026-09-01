@@ -2,46 +2,14 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ClickToPlayVideo from "./ClickToPlayVideo";
+import { projects } from "../data/projects";
 import styles from "./HorizontalScroll.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
-
-const projects = [
-  {
-    id: 1,
-    title: "MOSIR",
-    description: "Interactive 3D globe built with Three.js, plotting language data onto a wireframe sphere from Natural Earth GeoJSON. Custom marker placement by lat/long, a generated starfield, and damped orbital controls over a responsive WebGL canvas.",
-    url: "https://mariomhz.github.io/mosir/",
-    github: "https://github.com/mariomhz/mosir",
-    image: "/portraits/gradient1.webp",
-    screenshot: "/projects/mosir-screenshot.webp",
-    tags: ["Three.js", "JavaScript", "WebGL", "HTML"],
-  },
-  {
-    id: 2,
-    title: "SKYABOVE",
-    description: "Flight dashboard with a Next.js API route proxying AviationStack so the API key never reaches the browser. Adds a 30-minute in-memory cache, per-IP rate limiting with 429 responses, and a stale-cache fallback that keeps serving data when the upstream API fails. Fully typed response contracts, GSAP stat transitions.",
-    url: "https://skyabove-dashboard.vercel.app",
-    github: "https://github.com/mariomhz/skyabove",
-    image: "/portraits/gradient2.webp",
-    screenshot: "/projects/skyabove-screenshot.webp",
-    tags: ["Next.js", "TypeScript", "REST API", "Caching", "Rate Limiting", "GSAP"],
-  },
-  {
-    id: 3,
-    title: "MICULTURA",
-    description: "Cultural events platform for Tenerife, built in a pair for our DAW final project. I owned the Spring Boot API: JWT auth with refresh-token rotation, filtering and pagination over PostgreSQL, and the seeding. On the Next.js App Router frontend I built the event catalogue, the Leaflet map and the FullCalendar view. The catalogue falls back to a cached snapshot when the free backend is asleep, so the demo still works.",
-    url: "https://micultura.vercel.app",
-    github: "https://github.com/mariomhz/micultura-frontend",
-    backend: "https://github.com/mariomhz/micultura-backend",
-    image: "/portraits/gradient6.webp",
-    screenshot: "/projects/micultura-screenshot.webp",
-    tags: ["Next.js", "TypeScript", "Spring Boot", "PostgreSQL", "JWT Auth", "Leaflet", "Tailwind CSS"],
-  }
-];
 
 const skillCategories = [
   {
@@ -344,6 +312,12 @@ const HorizontalScroll = () => {
                           Backend
                           <span className="sr-only"> for {project.title}</span>
                         </a>
+                      )}
+                      {project.caseStudy && (
+                        <Link href={"/work/" + project.slug} className={styles.caseStudyLink}>
+                          Case study
+                          <span className="sr-only"> for {project.title}</span>
+                        </Link>
                       )}
                     </div>
                   </div>
