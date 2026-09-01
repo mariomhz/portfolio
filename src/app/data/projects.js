@@ -1,120 +1,6 @@
 export const projects = [
   {
     id: 1,
-    slug: "mosir",
-    title: "MOSIR",
-    year: "2026",
-    description: "A globe you can turn to see the world the way I read it: the eight languages I speak, marked on the cities they actually come from. Three.js over a Natural Earth GeoJSON sphere, with markers placed by real lat/long, a generated starfield and damped orbital controls.",
-    url: "https://mariomhz.github.io/mosir/",
-    github: "https://github.com/mariomhz/mosir",
-    image: "/portraits/gradient1.webp",
-    screenshot: "/projects/mosir-screenshot.webp",
-    screenshotWidth: 1600,
-    screenshotHeight: 1767,
-    tags: ["Three.js", "JavaScript", "WebGL", "HTML"],
-    role: "Solo project",
-    caseStudy: {
-      intro:
-        "I did not want my languages to be a line at the bottom of a CV. A list tells you a number. It does not tell you that each of these languages is attached to a place, and that the places are the point. So I built a globe you can turn, with the world marked the way I actually see it.",
-      sections: [
-        {
-          heading: "The idea",
-          body: [
-            "What I wanted to show with this project is how our planet feels to me: a world where certain places have a part of themselves within me. This is not a list of countries I have visited but rather a representation of the countries that reach me, and are a part of who I am because I speak the language they think in. This globe is my way of showing my love for coding and languages in a single project.",
-          ],
-        },
-        {
-          heading: "The markers are not random",
-          body: [
-            "The markers aren't at random locations, each one of them is the specific place that language actually entered my life. This globe is a portrait, not a dataset of random languages and places. I mention a little of my relationship with each language in each marker, which you can see by clicking on them.",
-          ],
-        },
-        {
-          heading: "How it works",
-          body: [
-            "The land masses come from Natural Earth GeoJSON, parsed and drawn as line segments onto a sphere of radius 2. GeoJSON gives you longitude and latitude in degrees, and Three.js wants x, y and z, so every coordinate goes through a spherical conversion before it becomes a point in the scene. The markers use that same conversion, which is what lets me place them by real lat and long instead of guessing.",
-            "On top of that there is a wireframe sphere for the grid, a solid inner sphere so you cannot see through to the far side, and a generated starfield of a thousand points for depth. Camera movement is OrbitControls with damping on and the zoom clamped between 3.5 and 5, so you can turn the globe and lean in, but you cannot fly off into space or end up inside the planet.",
-          ],
-        },
-        {
-          heading: "What’s next",
-          body: [
-            "I plan on making the globe more detailed and add interactive animations for a more refined experience. I also want to study optimization and make sure it renders correctly on all devices.",
-          ],
-        },
-      ],
-    },
-  },
-  {
-    id: 2,
-    slug: "skyabove",
-    title: "SKYABOVE",
-    year: "2026",
-    description: "Flight dashboard with a Next.js API route proxying AviationStack so the API key never reaches the browser. Adds a 30-minute in-memory cache, per-IP rate limiting with 429 responses, and a stale-cache fallback that keeps serving data when the upstream API fails. Fully typed response contracts, GSAP stat transitions.",
-    url: "https://skyabove-dashboard.vercel.app",
-    github: "https://github.com/mariomhz/skyabove",
-    image: "/portraits/gradient2.webp",
-    screenshot: "/projects/skyabove-screenshot.webp",
-    screenshotWidth: 1600,
-    screenshotHeight: 832,
-    tags: ["Next.js", "TypeScript", "REST API", "Caching", "Rate Limiting", "GSAP"],
-    role: "Solo project",
-    caseStudy: {
-      intro:
-        "A dashboard of live air traffic, built on a third party API I do not control and cannot afford to hammer. Most of the interesting work is not the UI, it is everything that keeps the page useful when the API is slow, rate limited, or down.",
-      sections: [
-        {
-          heading: "The idea",
-          body: [
-            "I wanted to build something that ran on real data instead of numbers I made up, because a project stops being an exercise the moment something outside your control can break it. Anything with a live API behind it will have a bad day eventually, and that is the part I actually wanted to learn: not how to fetch data, which is easy, but what the page should do when fetching fails.",
-          ],
-        },
-        {
-          heading: "The problem",
-          body: [
-            "AviationStack needs an API key. The moment you call it from the browser, that key is in the network tab and anyone can spend your quota. So the request has to happen on the server.",
-            "That solves the key but creates the real constraint: a free plan gives you a small number of calls, and every visitor refreshing the page burns them. One person with the dev console open can exhaust a month of quota in an afternoon. The dashboard had to work for visitors without letting visitors destroy it.",
-          ],
-        },
-        {
-          heading: "The decisions",
-          decisions: [
-            {
-              title: "Proxy through a route handler",
-              body: "app/api/flights/route.ts calls AviationStack server side and returns only the computed stats. The key lives in an environment variable and never reaches the client. The browser talks to my API, not theirs.",
-            },
-            {
-              title: "Cache in memory for 30 minutes",
-              body: "Flight aggregates do not change meaningfully minute to minute, so half an hour of staleness costs nothing and cuts upstream calls by orders of magnitude. I used a module level variable rather than Redis because the app runs as one instance, and adding infrastructure for a single cached object would have been ceremony, not engineering.",
-            },
-            {
-              title: "Rate limit per IP",
-              body: "Twenty requests a minute per IP, tracked in a Map, with old timestamps swept every five minutes so it does not grow forever. Over the limit gets a 429 with a Retry-After header rather than a silent failure, because a client that knows when to come back is better than one that keeps retrying.",
-            },
-            {
-              title: "Serve stale data when upstream dies",
-              body: "This is the part I am most pleased with. If AviationStack fails and I have anything cached, the endpoint returns that instead of an error, flagged with stale: true so the client knows. A slightly old dashboard is far more useful than an error page. Only when there is nothing cached at all does it return a 502.",
-            },
-          ],
-        },
-        {
-          heading: "Types as a contract",
-          body: [
-            "The AviationStack response is fully typed, down to the nullable fields: delay can be null, the live block can be null, flight_status is a union of six specific strings. Writing those out was tedious and it is the reason the transform code has no defensive guesswork in it. The compiler knows which fields can go missing, so I do not have to remember.",
-          ],
-        },
-        {
-          heading: "What’s next",
-          body: [
-            "The cache lives in memory on a single instance, which is fine now and would fall apart the moment it ran on two, so moving it somewhere shared is the first thing I would do if this ever had real traffic. I also want to persist it, so a cold start does not begin with nothing and leave the first visitor with no fallback if the API happens to be having a bad day.",
-            "Beyond that I want to do more with the data I am already fetching. There is enough in the response to show delays and routes properly, and right now I am only using a fraction of it.",
-          ],
-        },
-      ],
-    },
-  },
-  {
-    id: 3,
     slug: "micultura",
     title: "MICULTURA",
     year: "2026",
@@ -189,6 +75,120 @@ export const projects = [
     },
   },
 
+  {
+    id: 2,
+    slug: "skyabove",
+    title: "SKYABOVE",
+    year: "2026",
+    description: "Flight dashboard with a Next.js API route proxying AviationStack so the API key never reaches the browser. Adds a 30-minute in-memory cache, per-IP rate limiting with 429 responses, and a stale-cache fallback that keeps serving data when the upstream API fails. Fully typed response contracts, GSAP stat transitions.",
+    url: "https://skyabove-dashboard.vercel.app",
+    github: "https://github.com/mariomhz/skyabove",
+    image: "/portraits/gradient2.webp",
+    screenshot: "/projects/skyabove-screenshot.webp",
+    screenshotWidth: 1600,
+    screenshotHeight: 832,
+    tags: ["Next.js", "TypeScript", "REST API", "Caching", "Rate Limiting", "GSAP"],
+    role: "Solo project",
+    caseStudy: {
+      intro:
+        "A dashboard of live air traffic, built on a third party API I do not control and cannot afford to hammer. Most of the interesting work is not the UI, it is everything that keeps the page useful when the API is slow, rate limited, or down.",
+      sections: [
+        {
+          heading: "The idea",
+          body: [
+            "I wanted to build something that ran on real data instead of numbers I made up, because a project stops being an exercise the moment something outside your control can break it. Anything with a live API behind it will have a bad day eventually, and that is the part I actually wanted to learn: not how to fetch data, which is easy, but what the page should do when fetching fails.",
+          ],
+        },
+        {
+          heading: "The problem",
+          body: [
+            "AviationStack needs an API key. The moment you call it from the browser, that key is in the network tab and anyone can spend your quota. So the request has to happen on the server.",
+            "That solves the key but creates the real constraint: a free plan gives you a small number of calls, and every visitor refreshing the page burns them. One person with the dev console open can exhaust a month of quota in an afternoon. The dashboard had to work for visitors without letting visitors destroy it.",
+          ],
+        },
+        {
+          heading: "The decisions",
+          decisions: [
+            {
+              title: "Proxy through a route handler",
+              body: "app/api/flights/route.ts calls AviationStack server side and returns only the computed stats. The key lives in an environment variable and never reaches the client. The browser talks to my API, not theirs.",
+            },
+            {
+              title: "Cache in memory for 30 minutes",
+              body: "Flight aggregates do not change meaningfully minute to minute, so half an hour of staleness costs nothing and cuts upstream calls by orders of magnitude. I used a module level variable rather than Redis because the app runs as one instance, and adding infrastructure for a single cached object would have been ceremony, not engineering.",
+            },
+            {
+              title: "Rate limit per IP",
+              body: "Twenty requests a minute per IP, tracked in a Map, with old timestamps swept every five minutes so it does not grow forever. Over the limit gets a 429 with a Retry-After header rather than a silent failure, because a client that knows when to come back is better than one that keeps retrying.",
+            },
+            {
+              title: "Serve stale data when upstream dies",
+              body: "This is the part I am most pleased with. If AviationStack fails and I have anything cached, the endpoint returns that instead of an error, flagged with stale: true so the client knows. A slightly old dashboard is far more useful than an error page. Only when there is nothing cached at all does it return a 502.",
+            },
+          ],
+        },
+        {
+          heading: "Types as a contract",
+          body: [
+            "The AviationStack response is fully typed, down to the nullable fields: delay can be null, the live block can be null, flight_status is a union of six specific strings. Writing those out was tedious and it is the reason the transform code has no defensive guesswork in it. The compiler knows which fields can go missing, so I do not have to remember.",
+          ],
+        },
+        {
+          heading: "What’s next",
+          body: [
+            "The cache lives in memory on a single instance, which is fine now and would fall apart the moment it ran on two, so moving it somewhere shared is the first thing I would do if this ever had real traffic. I also want to persist it, so a cold start does not begin with nothing and leave the first visitor with no fallback if the API happens to be having a bad day.",
+            "Beyond that I want to do more with the data I am already fetching. There is enough in the response to show delays and routes properly, and right now I am only using a fraction of it.",
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: 3,
+    slug: "mosir",
+    title: "MOSIR",
+    year: "2026",
+    description: "A globe you can turn to see the world the way I read it: the eight languages I speak, marked on the cities they actually come from. Three.js over a Natural Earth GeoJSON sphere, with markers placed by real lat/long, a generated starfield and damped orbital controls.",
+    url: "https://mariomhz.github.io/mosir/",
+    github: "https://github.com/mariomhz/mosir",
+    image: "/portraits/gradient1.webp",
+    screenshot: "/projects/mosir-screenshot.webp",
+    screenshotWidth: 1600,
+    screenshotHeight: 1767,
+    tags: ["Three.js", "JavaScript", "WebGL", "HTML"],
+    role: "Solo project",
+    caseStudy: {
+      intro:
+        "I did not want my languages to be a line at the bottom of a CV. A list tells you a number. It does not tell you that each of these languages is attached to a place, and that the places are the point. So I built a globe you can turn, with the world marked the way I actually see it.",
+      sections: [
+        {
+          heading: "The idea",
+          body: [
+            "What I wanted to show with this project is how our planet feels to me: a world where certain places have a part of themselves within me. This is not a list of countries I have visited but rather a representation of the countries that reach me, and are a part of who I am because I speak the language they think in. This globe is my way of showing my love for coding and languages in a single project.",
+          ],
+        },
+        {
+          heading: "The markers are not random",
+          body: [
+            "The markers aren't at random locations, each one of them is the specific place that language actually entered my life. This globe is a portrait, not a dataset of random languages and places. I mention a little of my relationship with each language in each marker, which you can see by clicking on them.",
+          ],
+        },
+        {
+          heading: "How it works",
+          body: [
+            "The land masses come from Natural Earth GeoJSON, parsed and drawn as line segments onto a sphere of radius 2. GeoJSON gives you longitude and latitude in degrees, and Three.js wants x, y and z, so every coordinate goes through a spherical conversion before it becomes a point in the scene. The markers use that same conversion, which is what lets me place them by real lat and long instead of guessing.",
+            "On top of that there is a wireframe sphere for the grid, a solid inner sphere so you cannot see through to the far side, and a generated starfield of a thousand points for depth. Camera movement is OrbitControls with damping on and the zoom clamped between 3.5 and 5, so you can turn the globe and lean in, but you cannot fly off into space or end up inside the planet.",
+          ],
+        },
+        {
+          heading: "What’s next",
+          body: [
+            "I plan on making the globe more detailed and add interactive animations for a more refined experience. I also want to study optimization and make sure it renders correctly on all devices.",
+          ],
+        },
+      ],
+    },
+  },
 ];
 
 export function getProject(slug) {
