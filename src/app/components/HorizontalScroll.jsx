@@ -227,8 +227,8 @@ const HorizontalScroll = () => {
                   src={project.image}
                   alt=""
                   fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  quality={90}
+                  sizes={"(max-width: 768px) 100vw, (max-width: 1328px) calc((100vw - 192px) / 2), 568px"}
+                  quality={100}
                   className={styles.gradientImage}
                 />
                 {project.screenshot && (
@@ -236,8 +236,8 @@ const HorizontalScroll = () => {
                     src={project.screenshot}
                     alt={"Screenshot of the " + project.title + " interface"}
                     fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    quality={90}
+                    sizes={"(max-width: 768px) 100vw, (max-width: 1328px) calc((100vw - 192px) / 2), 568px"}
+                    quality={85}
                     className={styles.screenshotImage}
                   />
                 )}

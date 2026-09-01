@@ -166,7 +166,7 @@ export default function Home() {
                 I speak Portuguese, Spanish, English, Italian, Catalan, French, Norwegian, and American Sign Language, which shapes how I think about breaking communication barriers, human and digital.
               </p>
               <p>
-                I trained as Técnico Superior en Desarrollo de Aplicaciones Web, I run Linux on my daily machines, and I work out of the terminal, Git and Docker.
+                I trained in web application development, I run Linux on my daily machines, and I work out of the terminal, Git and Docker.
               </p>
             </div>
             <div className="col portrait">

@@ -2,7 +2,9 @@
 const nextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
-    qualities: [75, 90],
+    // Next maps quality far more aggressively than sharp does, so the
+    // gradients need the top of the scale to avoid banding.
+    qualities: [85, 100],
   },
 };
 

@@ -90,7 +90,7 @@ export default async function CaseStudy({ params }) {
             width={project.screenshotWidth}
             height={project.screenshotHeight}
             sizes="(max-width: 900px) 100vw, 736px"
-            quality={90}
+            quality={85}
           />
         </figure>
       )}
