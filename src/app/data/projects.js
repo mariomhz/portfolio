@@ -4,7 +4,7 @@ export const projects = [
     slug: "mosir",
     title: "MOSIR",
     year: "2026",
-    description: "Interactive 3D globe built with Three.js, plotting language data onto a wireframe sphere from Natural Earth GeoJSON. Custom marker placement by lat/long, a generated starfield, and damped orbital controls over a responsive WebGL canvas.",
+    description: "A globe you can turn to see the world the way I read it: the eight languages I speak, marked on the cities they actually come from. Three.js over a Natural Earth GeoJSON sphere, with markers placed by real lat/long, a generated starfield and damped orbital controls.",
     url: "https://mariomhz.github.io/mosir/",
     github: "https://github.com/mariomhz/mosir",
     image: "/portraits/gradient1.webp",
@@ -15,26 +15,34 @@ export const projects = [
     role: "Solo project",
     caseStudy: {
       intro:
-        "A globe you can spin to see where the languages I speak are spoken. I wanted something that was mine rather than another tutorial result, and I wanted to learn how 3D on the web actually works instead of copying a boilerplate.",
+        "I did not want my languages to be a line at the bottom of a CV. A list tells you a number. It does not tell you that each of these languages is attached to a place, and that the places are the point. So I built a globe you can turn, with the world marked the way I actually see it.",
       sections: [
         {
-          heading: "The problem",
+          heading: "The idea",
           body: [
-            "Listing eight languages on a page is boring and nobody reads it. Putting them on a globe makes the same information something you want to touch. The hard part is that a globe is not a picture, it is geography: every marker has to land on the right spot of a sphere, and the coastlines have to come from real data or the whole thing looks fake.",
+            "Eight languages written as a list is a fact about me that nobody has any reason to care about. It reads like a claim, and it flattens eight different relationships into one bullet point.",
+            "What I wanted to show is closer to how it actually feels: a world where certain places have something to say to me, and I can answer. Not countries I have visited. Countries that reach me, because I speak the language they think in. A globe made that possible in a way a paragraph never could, because you have to turn it to find things, and turning it is what makes it yours rather than mine.",
+          ],
+        },
+        {
+          heading: "The markers are not random",
+          body: [
+            "Every marker is a city, not a country, and almost none of them are the capital. Each one is the specific place that language actually entered my life, and I picked the coordinates by hand rather than dropping a pin in the middle of a landmass.",
+            "The reasons are personal and I have kept them to myself, but they are real, and they are the reason the map is not interchangeable with anyone else's. Someone else who spoke the same eight languages would produce a completely different globe. That is the part I care about: it is a portrait, not a dataset.",
           ],
         },
         {
           heading: "How it works",
           body: [
-            "The land masses come from Natural Earth GeoJSON, parsed and drawn as line segments onto a sphere of radius 2. GeoJSON gives you longitude and latitude in degrees, and Three.js wants x, y and z, so every coordinate goes through a spherical conversion before it becomes a point in the scene.",
-            "On top of that there is a wireframe sphere for the grid, a solid inner sphere so you cannot see through to the far side, a generated starfield of a thousand points for depth, and markers placed by lat/long for each language. Camera movement is OrbitControls with damping on and the zoom clamped between 3.5 and 5, so you cannot fly off into space or end up inside the planet.",
+            "The land masses come from Natural Earth GeoJSON, parsed and drawn as line segments onto a sphere of radius 2. GeoJSON gives you longitude and latitude in degrees, and Three.js wants x, y and z, so every coordinate goes through a spherical conversion before it becomes a point in the scene. The markers use that same conversion, which is what lets me place them by real lat and long instead of guessing.",
+            "On top of that there is a wireframe sphere for the grid, a solid inner sphere so you cannot see through to the far side, and a generated starfield of a thousand points for depth. Camera movement is OrbitControls with damping on and the zoom clamped between 3.5 and 5, so you can turn the globe and lean in, but you cannot fly off into space or end up inside the planet.",
           ],
         },
         {
           heading: "What I would do differently",
           body: [
-            "The whole thing uses standard Three.js materials. There are no custom shaders in it, and for a long time my portfolio claimed there were, which I only caught when I went back and read my own code. Writing an actual GLSL shader for the atmosphere glow is the obvious next step and the honest reason it is not there yet is that I have not learned it properly.",
-            "The marker data is hardcoded in the source. If I extended this I would move it to a JSON file so adding a language does not mean touching the render logic.",
+            "The globe shows you where, but not why. Right now a marker is a point, and the meaning behind it lives only in my head. If I took this further I would let each one open, so a place could carry a line of text and the map could say what it is actually about.",
+            "It also uses standard Three.js materials. There are no custom shaders in it, and my portfolio claimed there were until I went back and read my own code. An atmosphere glow is the obvious next thing to build, and the honest reason it is not there is that I have not learned GLSL properly yet.",
           ],
         },
       ],

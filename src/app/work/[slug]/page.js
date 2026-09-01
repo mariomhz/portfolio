@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import ReadingProgress from "../../components/ReadingProgress";
 import { projects, getProject } from "../../data/projects";
 import styles from "./caseStudy.module.css";
 
@@ -38,10 +39,12 @@ export default async function CaseStudy({ params }) {
   const { caseStudy } = project;
 
   return (
-    <div className={styles.page}>
+    <>
+      <ReadingProgress />
+      <div className={styles.page}>
       <header className={styles.header}>
-        <Link href="/" className={styles.back}>
-          ← Back to work
+        <Link href="/work" className={styles.back}>
+          ← All case studies
         </Link>
 
         <h1 className={styles.title}>{project.title}</h1>
@@ -115,10 +118,11 @@ export default async function CaseStudy({ params }) {
       </main>
 
       <footer className={styles.footer}>
-        <Link href="/" className={styles.back}>
-          ← Back to work
+        <Link href="/work" className={styles.back}>
+          ← All case studies
         </Link>
       </footer>
-    </div>
+      </div>
+    </>
   );
 }

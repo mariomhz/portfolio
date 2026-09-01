@@ -1,7 +1,7 @@
 .page {
-  max-width: 46rem;
+  max-width: 40rem;
   margin: 0 auto;
-  padding: 6rem 1.5rem 8rem;
+  padding: 4.5rem 1.5rem 7rem;
   color: white;
 }
 
@@ -19,7 +19,7 @@
 }
 
 .header {
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
 }
 
 .title {
@@ -28,7 +28,7 @@
   font-weight: 400;
   letter-spacing: -2px;
   line-height: 1;
-  margin: 2.5rem 0 1.5rem;
+  margin: 1.75rem 0 1.25rem;
 }
 
 /* Long-form copy has to opt out of the global uppercase 11px paragraph rule. */
@@ -38,24 +38,24 @@
   font-family: var(--font-roboto-mono), monospace;
   font-size: 15px;
   font-weight: 400;
-  line-height: 1.75;
+  line-height: 1.6;
   text-transform: none;
   letter-spacing: 0;
   color: rgba(255, 255, 255, 0.78);
 }
 
 .intro {
-  font-size: 17px;
-  line-height: 1.7;
+  font-size: 16px;
+  line-height: 1.65;
   color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .meta {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
-  gap: 1.5rem;
-  padding: 1.75rem 0;
+  gap: 1.25rem;
+  padding: 1.25rem 0;
   border-top: 1px solid rgba(255, 255, 255, 0.15);
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
@@ -101,21 +101,23 @@
 
 /* The global img rule pins media absolutely; this one sits in the flow. */
 .shot {
-  margin: 0 0 4rem;
+  margin: 0 0 3rem;
   overflow: hidden;
-  background-color: #0a0a0a;
 }
 
 .shot img {
   position: relative;
   width: 100%;
   height: auto;
+  /* Screenshots range from 0.91 to 1.92 in ratio; capping the height stops a
+     tall one from taking a whole screen before the writing starts. */
+  max-height: 26rem;
   object-fit: contain;
   display: block;
 }
 
 .section {
-  margin-bottom: 3.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .section h2 {
@@ -125,11 +127,11 @@
   letter-spacing: -0.5px;
   line-height: 1.2;
   color: white;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.9rem;
 }
 
 .body p + p {
-  margin-top: 1.25rem;
+  margin-top: 0.9rem;
 }
 
 .decisions {
@@ -138,7 +140,7 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 .decisions h3 {
@@ -165,6 +167,6 @@
 
 @media (min-width: 769px) {
   .page {
-    padding: 8rem 2rem 10rem;
+    padding: 6rem 2rem 8rem;
   }
 }
