@@ -110,16 +110,16 @@ p {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.app section,
-.app header.hero,
-.app footer.footer {
+:where(.app) section,
+:where(.app) header.hero,
+:where(.app) footer.footer {
     position: relative;
     width: 100%;
     height: 100vh;
     overflow: hidden;
 }
 
-.app section.projects {
+:where(.app) section.projects {
     height: auto;
     overflow: visible;
     background-color: white;
