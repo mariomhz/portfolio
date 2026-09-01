@@ -197,7 +197,7 @@ export default function Home() {
             <div className="banner-copy">
               <h2 id="contact-heading">GET IN TOUCH WITH ME!</h2>
               <p className="subtitle">
-                Open to junior developer and technical support roles. Remote, or on site anywhere: I am based in Tenerife and will relocate for the right offer. Always up for collaborating on new projects too.
+                Open to junior developer and technical support roles, and always up for collaborating on new projects.
               </p>
               <div className="buttons">
                 <a href="https://www.linkedin.com/in/mariohrdezc/" target="_blank" rel="noopener noreferrer">

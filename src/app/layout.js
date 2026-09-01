@@ -18,7 +18,7 @@ const robotoMono = Roboto_Mono({
 const SITE_URL = "https://mariohdez.vercel.app";
 const TITLE = "José Mario Hernández / Fullstack Developer";
 const DESCRIPTION =
-  "Fullstack developer based in Tenerife, Canary Islands. Tecnico Superior en Desarrollo de Aplicaciones Web (DAW). Java, C#, JavaScript, TypeScript, Spring Boot, .NET, MySQL and Linux. Open to junior developer and technical support roles, remote or relocating.";
+  "Fullstack developer based in Tenerife, Canary Islands. Tecnico Superior en Desarrollo de Aplicaciones Web (DAW). Java, C#, JavaScript, TypeScript, Spring Boot, .NET, MySQL and Linux. Open to junior developer and technical support roles.";
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
