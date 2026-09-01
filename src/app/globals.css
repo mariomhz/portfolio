@@ -110,16 +110,16 @@ p {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-section,
-header.hero,
-footer.footer {
+.app section,
+.app header.hero,
+.app footer.footer {
     position: relative;
     width: 100%;
     height: 100vh;
     overflow: hidden;
 }
 
-section.projects {
+.app section.projects {
     height: auto;
     overflow: visible;
     background-color: white;
