@@ -20,15 +20,13 @@ export const projects = [
         {
           heading: "The idea",
           body: [
-            "Eight languages written as a list is a fact about me that nobody has any reason to care about. It reads like a claim, and it flattens eight different relationships into one bullet point.",
-            "What I wanted to show is closer to how it actually feels: a world where certain places have something to say to me, and I can answer. Not countries I have visited. Countries that reach me, because I speak the language they think in. A globe made that possible in a way a paragraph never could, because you have to turn it to find things, and turning it is what makes it yours rather than mine.",
+            "What I wanted to show with this project is how our planet feels to me: a world where certain places have a part of themselves within me. This is not a list of countries I have visited but rather a representation of the countries that reach me, and are a part of who I am because I speak the language they think in. This globe is my way of showing my love for coding and languages in a single project.",
           ],
         },
         {
           heading: "The markers are not random",
           body: [
-            "Every marker is a city, not a country, and almost none of them are the capital. Each one is the specific place that language actually entered my life, and I picked the coordinates by hand rather than dropping a pin in the middle of a landmass.",
-            "The reasons are personal and I have kept them to myself, but they are real, and they are the reason the map is not interchangeable with anyone else's. Someone else who spoke the same eight languages would produce a completely different globe. That is the part I care about: it is a portrait, not a dataset.",
+            "The markers aren't at random locations, each one of them is the specific place that language actually entered my life. This globe is a portrait, not a dataset of random languages and places. I mention a little of my relationship with each language in each marker, which you can see by clicking on them.",
           ],
         },
         {
@@ -39,10 +37,9 @@ export const projects = [
           ],
         },
         {
-          heading: "What I would do differently",
+          heading: "What’s next",
           body: [
-            "The globe shows you where, but not why. Right now a marker is a point, and the meaning behind it lives only in my head. If I took this further I would let each one open, so a place could carry a line of text and the map could say what it is actually about.",
-            "It also uses standard Three.js materials. There are no custom shaders in it, and my portfolio claimed there were until I went back and read my own code. An atmosphere glow is the obvious next thing to build, and the honest reason it is not there is that I have not learned GLSL properly yet.",
+            "I plan on making the globe more detailed and add interactive animations for a more refined experience. I also want to study optimization and make sure it renders correctly on all devices.",
           ],
         },
       ],
@@ -67,6 +64,12 @@ export const projects = [
         "A dashboard of live air traffic, built on a third party API I do not control and cannot afford to hammer. Most of the interesting work is not the UI, it is everything that keeps the page useful when the API is slow, rate limited, or down.",
       sections: [
         {
+          heading: "The idea",
+          body: [
+            "I wanted to build something that ran on real data instead of numbers I made up, because a project stops being an exercise the moment something outside your control can break it. Anything with a live API behind it will have a bad day eventually, and that is the part I actually wanted to learn: not how to fetch data, which is easy, but what the page should do when fetching fails.",
+          ],
+        },
+        {
           heading: "The problem",
           body: [
             "AviationStack needs an API key. The moment you call it from the browser, that key is in the network tab and anyone can spend your quota. So the request has to happen on the server.",
@@ -82,7 +85,7 @@ export const projects = [
             },
             {
               title: "Cache in memory for 30 minutes",
-              body: "Flight aggregates do not change meaningfully minute to minute, so a half hour of staleness costs nothing and cuts upstream calls by orders of magnitude. I used a module level variable rather than Redis because the app runs as one instance and adding infrastructure for a single cached object would have been ceremony, not engineering.",
+              body: "Flight aggregates do not change meaningfully minute to minute, so half an hour of staleness costs nothing and cuts upstream calls by orders of magnitude. I used a module level variable rather than Redis because the app runs as one instance, and adding infrastructure for a single cached object would have been ceremony, not engineering.",
             },
             {
               title: "Rate limit per IP",
@@ -90,21 +93,21 @@ export const projects = [
             },
             {
               title: "Serve stale data when upstream dies",
-              body: "This is the part I am most pleased with. If AviationStack fails and I have anything cached, the endpoint returns that instead of an error, flagged with stale: true so the client knows. A slightly old dashboard is far more useful than an error page. If there is nothing cached at all, only then does it return 502.",
+              body: "This is the part I am most pleased with. If AviationStack fails and I have anything cached, the endpoint returns that instead of an error, flagged with stale: true so the client knows. A slightly old dashboard is far more useful than an error page. Only when there is nothing cached at all does it return a 502.",
             },
           ],
         },
         {
           heading: "Types as a contract",
           body: [
-            "The AviationStack response is fully typed in lib/aviationstack.ts, down to the nullable fields: delay can be null, the live block can be null, flight_status is a union of six specific strings. Writing those types out was tedious and it is the reason the transform code has no defensive guesswork in it. The compiler knows which fields can be missing, so I do not have to remember.",
+            "The AviationStack response is fully typed, down to the nullable fields: delay can be null, the live block can be null, flight_status is a union of six specific strings. Writing those out was tedious and it is the reason the transform code has no defensive guesswork in it. The compiler knows which fields can go missing, so I do not have to remember.",
           ],
         },
         {
-          heading: "What I would do differently",
+          heading: "What’s next",
           body: [
-            "The cache is per instance. Right now that is fine because there is one instance, but the moment it scaled horizontally each instance would keep its own copy and the upstream call count would multiply. The honest fix is a shared cache, and I would reach for one only when there is a second instance to justify it.",
-            "There is also no persistence. A cold start begins with an empty cache, so the first visitor after a quiet period pays the full upstream latency and gets no stale fallback if the API happens to be down at that moment.",
+            "The cache lives in memory on a single instance, which is fine now and would fall apart the moment it ran on two, so moving it somewhere shared is the first thing I would do if this ever had real traffic. I also want to persist it, so a cold start does not begin with nothing and leave the first visitor with no fallback if the API happens to be having a bad day.",
+            "Beyond that I want to do more with the data I am already fetching. There is enough in the response to show delays and routes properly, and right now I am only using a fraction of it.",
           ],
         },
       ],
@@ -130,6 +133,13 @@ export const projects = [
         "Our final project for the DAW cycle: a platform for finding cultural events across Tenerife, with a map, a calendar and a filterable catalogue. Built in a pair. I wrote the Spring Boot API and the parts of the frontend that consume it.",
       sections: [
         {
+          heading: "The idea",
+          body: [
+            "We could have built anything for the final project, and we chose to build something for the island we actually live on: one place to find the concerts, exhibitions, festivals and markets happening across Tenerife, instead of hunting through a different page for each one.",
+            "It also meant the project had a real shape to it. Events have dates, prices, categories and locations, and every one of those turns into a decision about how you store it, how you filter it and how you show it. That was more interesting than inventing a problem to solve.",
+          ],
+        },
+        {
           heading: "Auth was the part worth getting right",
           body: [
             "Most student projects put a JWT in localStorage and call it done. That token cannot be revoked, and anything that can read the page can read the token, so I wanted a design where losing one piece does not hand over the account.",
@@ -140,7 +150,7 @@ export const projects = [
           heading: "Filtering without a pile of if statements",
           body: [
             "The catalogue filters by category, free text, date range and price range, in any combination. Writing that as branching query methods gets ugly fast, so the API composes JPA Specifications instead: one small specification per filter, combined with and, and null ones simply skipped.",
-            "One of those specifications is always applied and is not optional. noFinalizado restricts results to events whose date is today or later, because a cultural events site that shows you last month's concerts is not doing its job. That decision comes back later in a way I did not expect.",
+            "One of those is always applied and is not optional. noFinalizado restricts results to events happening today or later, because a cultural events site that shows you last month's concerts is not doing its job. That decision comes back later in a way I did not expect.",
           ],
         },
         {
@@ -148,27 +158,28 @@ export const projects = [
           body: [
             "Months after handing the project in, the live demo went empty. The page loaded, the filters rendered, and there were zero events.",
             "The first cause was easy: the free Postgres instance had expired and been deleted, so the backend could not start. I moved the database to a provider whose free tier does not expire, set the connection details, and the API came back.",
-            "It still only returned eight events out of seventy seven. The second cause was hiding behind the first. The seeder anchored its dates to a hardcoded LocalDate.of(2026, 5, 15), and combined with noFinalizado filtering out anything before today, almost every seeded event had quietly aged into the past. Restoring the database alone would never have fixed it. Seeding from LocalDate.now() did.",
+            "It still only returned eight events out of seventy seven. The second cause was hiding behind the first. The seeder anchored its dates to a hardcoded date in May, and combined with noFinalizado filtering out anything before today, almost every seeded event had quietly aged into the past. Restoring the database alone would never have fixed it. Seeding relative to today did.",
           ],
         },
         {
           heading: "Making the demo survive its own hosting",
           body: [
             "Fixing it once was not enough, because free hosting sleeps. The backend spins down after fifteen minutes of inactivity and takes the better part of a minute to wake, and nobody waits a minute at an empty page.",
-            "So I did to the frontend what I had already done to SkyAbove: when the API cannot be reached, serve the last known good data instead of nothing. The seeded catalogue is snapshotted into the frontend as JSON, with dates stored as day offsets and resolved against today so the cached events never age out the way the original ones did. The offline path reimplements the same filtering the backend does, including noFinalizado, so the cached catalogue behaves like the live one. Reads time out after eight seconds and fall back. Writes still fail loudly, because silently pretending a save worked would be a much worse lie than showing slightly old data.",
+            "So I did to the frontend what I had already done in SkyAbove: when the API cannot be reached, serve the last known good data instead of nothing. The seeded catalogue is snapshotted into the frontend, with dates stored as day offsets and resolved against today so the cached events never age out the way the original ones did. The offline path repeats the same filtering the backend does, so the cached catalogue behaves like the live one. Reads give up after eight seconds and fall back. Writes still fail loudly, because quietly pretending a save worked would be a much worse lie than showing slightly old data.",
             "The page says so when it is serving the snapshot. Showing cached data as though it were live would be the kind of small dishonesty I was trying to design out in the first place.",
           ],
         },
         {
-          heading: "What I would do differently",
+          heading: "What’s next",
           body: [
-            "The seeder used to wipe and reinsert every event on boot, which took saved events with it through the foreign key. On hosting that restarts whenever it wakes, a user's saved events disappeared within the hour. It now counts upcoming events first and only reseeds when none are left.",
-            "Schema changes run through Hibernate's ddl-auto, which is fine for coursework and wrong for anything real. Flyway would be the first thing I added if this had to live.",
+            "Schema changes still run through Hibernate's ddl-auto, which is fine for coursework and wrong for anything real, so a proper migration tool is the first thing I would add. I would also like saved events to survive more than they currently do, and to keep building on the search rather than leaving it where the deadline left it.",
+            "The bigger thing I want is real data. Right now the catalogue is seeded, and the version of this I would actually use pulls from the places these events are really announced.",
           ],
         },
       ],
     },
   },
+
 ];
 
 export function getProject(slug) {
