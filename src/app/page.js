@@ -1,211 +1,246 @@
 "use client"
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import ParallaxImage from "./components/ParallaxImage";
 import ParallaxVideo from "./components/ParallaxVideo";
 import HorizontalScroll from "./components/HorizontalScroll";
 import { LenisProvider } from "./context/LenisContext";
 
+const isTouchDevice = () => {
+  try {
+    return (
+      typeof window !== "undefined" &&
+      ("ontouchstart" in window ||
+        navigator.maxTouchPoints > 0 ||
+        navigator.msMaxTouchPoints > 0)
+    );
+  } catch {
+    return false;
+  }
+};
+
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 export default function Home() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
+  const cursorRef = useRef(null);
 
   useEffect(() => {
-    const updateMousePosition = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+    const cursor = cursorRef.current;
+    if (!cursor || isTouchDevice()) return;
 
-      const target = e.target;
-      const isClickable =
-        target.closest('a, button, [onclick], .scroll-indicator, .footer-links h1') !== null;
-      setIsHovering(isClickable);
+    const reduced = prefersReducedMotion();
+    const target = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    const current = { ...target };
+    let hovering = false;
+    let rafId = null;
+
+    const onPointerMove = (e) => {
+      if (cursor.style.opacity !== "1") {
+        current.x = e.clientX;
+        current.y = e.clientY;
+        cursor.style.opacity = "1";
+      }
+
+      target.x = e.clientX;
+      target.y = e.clientY;
+
+      const overClickable =
+        e.target instanceof Element &&
+        e.target.closest("a, button, [role='button']") !== null;
+
+      if (overClickable !== hovering) {
+        hovering = overClickable;
+        cursor.style.width = hovering ? "60px" : "40px";
+        cursor.style.height = hovering ? "60px" : "40px";
+      }
     };
 
-    window.addEventListener('mousemove', updateMousePosition);
+    const render = () => {
+      const ease = reduced ? 1 : 0.1;
+      current.x += (target.x - current.x) * ease;
+      current.y += (target.y - current.y) * ease;
+      cursor.style.transform =
+        "translate3d(" + current.x + "px," + current.y + "px,0) translate(-50%,-50%)";
+      rafId = requestAnimationFrame(render);
+    };
+
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    rafId = requestAnimationFrame(render);
 
     return () => {
-      window.removeEventListener('mousemove', updateMousePosition);
+      window.removeEventListener("pointermove", onPointerMove);
+      if (rafId) cancelAnimationFrame(rafId);
     };
   }, []);
 
-  useEffect(() => {
-    let animationFrameId;
+  const scrollToId = (id) => {
+    const section = document.getElementById(id);
+    if (!section) return;
+    section.scrollIntoView({
+      behavior: prefersReducedMotion() ? "auto" : "smooth",
+    });
+    section.setAttribute("tabindex", "-1");
+    section.focus({ preventScroll: true });
+  };
 
-    const animate = () => {
-      setCursorPosition(prev => ({
-        x: prev.x + (mousePosition.x - prev.x) * 0.1,
-        y: prev.y + (mousePosition.y - prev.y) * 0.1
-      }));
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    animationFrameId = requestAnimationFrame(animate);
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, [mousePosition]);
+  const handleAnchor = (id) => (e) => {
+    e.preventDefault();
+    scrollToId(id);
+  };
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: prefersReducedMotion() ? "auto" : "smooth",
     });
   };
 
-  const scrollToSection = (sectionClass) => {
-    const section = document.querySelector(`.${sectionClass}`);
-    if (section) {
-      section.scrollIntoView({
-        behavior: 'smooth'
-      });
-    }
-  };
-
-  const scrollToNextSection = () => {
-    scrollToSection('projects');
-  };
-
-  useEffect(() => {
-    const cursor = document.querySelector('.custom-cursor');
-    if (!cursor) return;
-
-    const checkTouchDevice = () => {
-      try {
-        return (
-          typeof window !== "undefined" &&
-          ("ontouchstart" in window ||
-            navigator.maxTouchPoints > 0 ||
-            navigator.msMaxTouchPoints > 0)
-        );
-      } catch {
-        return false;
-      }
-    };
-
-    const isTouch = checkTouchDevice();
-    cursor.style.display = isTouch ? "none" : "block";
-
-    const handleResize = () => {
-      const touch = checkTouchDevice();
-      cursor.style.display = touch ? "none" : "block";
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   return (
     <LenisProvider>
-      <div
-        className="custom-cursor"
-        style={{
-          position: 'fixed',
-          left: `${cursorPosition.x}px`,
-          top: `${cursorPosition.y}px`,
-          width: isHovering ? '60px' : '40px',
-          height: isHovering ? '60px' : '40px',
-          borderRadius: '50%',
-          border: '2px solid white',
-          backgroundColor: 'white',
-          pointerEvents: 'none',
-          transform: 'translate(-50%, -50%)',
-          zIndex: 9999,
-          mixBlendMode: 'difference',
-          transition: 'width 0.3s ease, height 0.3s ease'
-        }}
-      />
+      <a className="skip-link" href="#projects">
+        Skip to projects
+      </a>
 
-      <div className="app" style={{ cursor: 'auto' }}>
-        <section className="hero">
+      <div ref={cursorRef} className="custom-cursor" aria-hidden="true" />
+
+      <div className="app">
+        <header id="hero" className="hero">
           <div className="title">
             <h1>José Mario Hernández</h1>
-            <p className="role">Fullstack creative developer</p>
-            <p className="location">based in Tenerife, Canary Islands.</p>
+            <p className="role">Fullstack developer</p>
+            <p className="location">
+              Tenerife, Canary Islands · open to remote
+            </p>
+            <p className="languages">
+              <span className="languages-count">8 languages</span>
+              <span aria-hidden="true"> / PT · ES · IT · EN · CA · FR · ASL · NO</span>
+              <span className="sr-only">
+                : Portuguese, Spanish and Italian natively, English, Catalan,
+                French, American Sign Language and Norwegian
+              </span>
+            </p>
           </div>
 
-          <div className="nav">
-            <a href="#" onClick={(e) => { e.preventDefault(); scrollToSection('projects'); }}>PROJECTS</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}>PROFILE</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); scrollToSection('banner'); }}>CONTACT</a>
-          </div>
+          <nav className="nav" aria-label="Primary">
+            <a href="#projects" onClick={handleAnchor("projects")}>PROJECTS</a>
+            <a href="#about" onClick={handleAnchor("about")}>PROFILE</a>
+            <a href="#contact" onClick={handleAnchor("contact")}>CONTACT</a>
+          </nav>
 
-          <div className="scroll-indicator" onClick={scrollToNextSection} style={{ cursor: 'pointer' }}>
-            <p style={{ pointerEvents: 'none' }}>SCROLL</p>
-            <svg className="scroll-arrow" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" style={{ pointerEvents: 'none' }}>
+          <button
+            type="button"
+            className="scroll-indicator"
+            onClick={() => scrollToId("projects")}
+          >
+            <span aria-hidden="true">SCROLL</span>
+            <span className="sr-only">Scroll to projects</span>
+            <svg
+              className="scroll-arrow"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              aria-hidden="true"
+            >
               <path d="M12 5v14M19 12l-7 7-7-7" />
             </svg>
-          </div>
-        </section>
+          </button>
+        </header>
 
-        <HorizontalScroll />
+        <main>
+          <HorizontalScroll />
 
-        <section className="about">
-          <div className="col intro">
-            <p>Who am I?</p>
-            <blockquote className="creed">
-              &ldquo;To create is to bring something into existence that wasn&rsquo;t there before.&rdquo;
-              <cite>Rick Rubin, The Creative Act</cite>
-            </blockquote>
-            <p>
-              I believe technology is the tool I was given to create and I use it to shape digital experiences.
-            </p>
-            <p>
-              I want to create work that is accessible, unique. I want to make websites more useful, more beautiful, more fun. I want to work with people, not for people, because I believe when humans think and work together we can achieve some pretty incredible stuff.
-            </p>
-            <p>
-              I speak Portuguese, Spanish, English, Italian, Catalan, French, Norwegian, and American Sign Language, which shapes how I think about breaking communication barriers, human and digital.
-            </p>
-          </div>
-          <div className="col portrait">
-            <div className="portrait-container">
-              <div className="img">
-                <ParallaxVideo src="/videos/fuzzy.mp4" poster="/videos/fuzzy-poster.jpg" />
+          <section id="about" className="about" aria-labelledby="about-heading">
+            <div className="col intro">
+              <h2 id="about-heading" className="section-label">Who am I?</h2>
+              <blockquote className="creed">
+                &ldquo;To create is to bring something into existence that wasn&rsquo;t there before.&rdquo;
+                <cite>Rick Rubin, The Creative Act</cite>
+              </blockquote>
+              <p>
+                I believe technology is the tool I was given to create and I use it to shape digital experiences.
+              </p>
+              <p>
+                I want to create work that is accessible, unique. I want to make websites more useful, more beautiful, more fun. I want to work with people, not for people, because I believe when humans think and work together we can achieve some pretty incredible stuff.
+              </p>
+              <p>
+                I speak Portuguese, Spanish, English, Italian, Catalan, French, Norwegian, and American Sign Language, which shapes how I think about breaking communication barriers, human and digital.
+              </p>
+              <p>
+                I trained as Técnico Superior en Desarrollo de Aplicaciones Web, I run Linux on my daily machines, and I work out of the terminal, Git and Docker.
+              </p>
+            </div>
+            <div className="col portrait">
+              <div className="portrait-container">
+                <div className="img">
+                  <ParallaxVideo
+                    sources={[
+                      { src: "/videos/fuzzy-av1.mp4", type: "video/mp4; codecs=av01.0.05M.08" },
+                      { src: "/videos/fuzzy.mp4", type: "video/mp4" },
+                    ]}
+                    poster="/videos/fuzzy-poster.webp"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section className="banner">
-          <div className="img">
-            <ParallaxImage src="/portraits/gradient2.jpg" alt="" />
-          </div>
-
-          <div className="banner-copy">
-            <p>GET IN TOUCH WITH ME!</p>
-            <p className="subtitle">I&apos;m always open to collaborating on new projects.</p>
-            <div className="buttons">
-              <a href="https://www.linkedin.com/in/mariohrdezc" target="_blank" rel="noopener noreferrer">
-                LinkedIn
-              </a>
-              <a href="mailto:mariohrdezdeveloper@gmail.com">
-                Email Me
-              </a>
-              <a href="https://github.com/mariomhz" target="_blank" rel="noopener noreferrer">
-                GitHub
-              </a>
-              <a href="/mario-hernandez-cv.pdf" download="Mario Hernandez CV.pdf">
-                Download CV
-              </a>
+          <section id="contact" className="banner" aria-labelledby="contact-heading">
+            <div className="img">
+              <ParallaxImage
+                src="/portraits/gradient2.webp"
+                alt=""
+                width={1300}
+                height={975}
+              />
             </div>
-          </div>
-        </section>
 
-        <section className="footer">
+            <div className="banner-copy">
+              <h2 id="contact-heading">GET IN TOUCH WITH ME!</h2>
+              <p className="subtitle">
+                Open to junior developer and technical support roles, remote or in Canarias, and always up for collaborating on new projects.
+              </p>
+              <div className="buttons">
+                <a href="https://www.linkedin.com/in/mariohrdezc/" target="_blank" rel="noopener noreferrer">
+                  LinkedIn
+                </a>
+                <a href="mailto:mariohrdezdeveloper@gmail.com">
+                  Email Me
+                </a>
+                <a href="https://github.com/mariomhz" target="_blank" rel="noopener noreferrer">
+                  GitHub
+                </a>
+                <a href="/mario-hernandez-cv.pdf" download="Mario Hernandez CV.pdf">
+                  Download CV
+                </a>
+              </div>
+            </div>
+          </section>
+        </main>
+
+        <footer className="footer">
           <div className="col">
-            <p><a href="https://instagram.com/mariocoding" target="_blank" rel="noopener noreferrer">Instagram</a> / <a href="https://github.com/mariomhz" target="_blank" rel="noopener noreferrer">Github</a> / <a href="https://www.linkedin.com/in/josemariohernandez/" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
-            <div className="footer-links">
-              <h1 onClick={() => scrollToSection('projects')} style={{ cursor: 'none' }}>Projects</h1>
-              <h1 onClick={() => scrollToSection('about')} style={{ cursor: 'none' }}>About</h1>
-              <h1 onClick={() => scrollToSection('banner')} style={{ cursor: 'none' }}>Contact</h1>
-              <h1 onClick={scrollToTop} style={{ cursor: 'none' }}>Back to top</h1>
-            </div>
+            <p>
+              <a href="https://instagram.com/mariocoding" target="_blank" rel="noopener noreferrer">Instagram</a>
+              {" / "}
+              <a href="https://github.com/mariomhz" target="_blank" rel="noopener noreferrer">Github</a>
+              {" / "}
+              <a href="https://www.linkedin.com/in/mariohrdezc/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </p>
+            <nav className="footer-links" aria-label="Footer">
+              <button type="button" onClick={() => scrollToId("projects")}>Projects</button>
+              <button type="button" onClick={() => scrollToId("about")}>About</button>
+              <button type="button" onClick={() => scrollToId("contact")}>Contact</button>
+              <button type="button" onClick={scrollToTop}>Back to top</button>
+            </nav>
             <div className="credits">
               <p>&copy; developed and designed by Mario Hernandez</p>
               <p className="credit">3D art created by me.</p>
             </div>
           </div>
-        </section>
+        </footer>
       </div>
     </LenisProvider>
   );

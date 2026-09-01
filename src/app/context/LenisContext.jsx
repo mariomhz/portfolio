@@ -22,6 +22,10 @@ export const LenisProvider = ({ children }) => {
   const [lenis, setLenis] = useState(null);
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
     const lenisInstance = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -34,19 +38,22 @@ export const LenisProvider = ({ children }) => {
 
     lenisInstance.on("scroll", ScrollTrigger.update);
 
-    gsap.ticker.add((time) => {
+    const tick = (time) => {
       lenisInstance.raf(time * 1000);
-    });
+    };
 
+    gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
 
-    setTimeout(() => {
+    const refreshTimer = setTimeout(() => {
       ScrollTrigger.refresh();
-      window.dispatchEvent(new Event('resize'));
+      window.dispatchEvent(new Event("resize"));
     }, 100);
 
     return () => {
-      gsap.ticker.remove(lenisInstance.raf);
+      clearTimeout(refreshTimer);
+      lenisInstance.off("scroll", ScrollTrigger.update);
+      gsap.ticker.remove(tick);
       lenisInstance.destroy();
     };
   }, []);

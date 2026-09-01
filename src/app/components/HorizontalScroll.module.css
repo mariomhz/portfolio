@@ -37,10 +37,26 @@
   padding: 4rem;
   width: 92vw;
   position: relative;
+  overflow-y: auto;
 }
 
 .skillsContent {
   max-width: 600px;
+}
+
+@media (min-width: 900px) {
+  .skillsContent {
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 3rem;
+    align-items: start;
+  }
+
+  .skillsTitle,
+  .skillsCredential {
+    grid-column: 1 / -1;
+  }
 }
 
 .skillsTitle {
@@ -51,6 +67,16 @@
   line-height: 1;
   margin-bottom: 2rem;
   color: black;
+}
+
+.skillsCredential {
+  font-family: var(--font-roboto-mono), monospace;
+  font-size: clamp(11px, 1.4vw, 14px);
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #666;
+  margin: -1.25rem 0 2rem;
 }
 
 .skillCategory {
@@ -71,9 +97,12 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.skillsList p {
+.skillsList li {
   font-size: clamp(14px, 2vw, 24px);
   font-weight: 300;
   color: black;
@@ -99,6 +128,22 @@
 
 .scrollHint .arrow {
   display: inline-block;
+}
+
+/* Reduced motion */
+.staticScroll {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+.staticScroll .horizontalWrapper {
+  transform: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollHint {
+    animation: none;
+  }
 }
 
 @keyframes fadeInUp {
@@ -211,6 +256,9 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .tag {
@@ -373,5 +421,99 @@
 
   .projectCard {
     gap: 6rem;
+  }
+}
+
+/* Languages Panel */
+.languagesPanel {
+  background-color: white;
+  color: black;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 4rem;
+  width: 92vw;
+  position: relative;
+  overflow-y: auto;
+}
+
+.languagesContent {
+  width: 100%;
+  max-width: 720px;
+}
+
+.languagesLayout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .languagesLayout:has(.languageReel) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 22rem);
+    gap: 3.5rem;
+  }
+}
+
+.languageReel {
+  width: 100%;
+}
+
+.languageList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.languageRow {
+  display: grid;
+  grid-template-columns: 4rem 1fr auto;
+  align-items: baseline;
+  gap: 1.5rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.languageRow:last-child {
+  border-bottom: none;
+}
+
+.languageCode {
+  font-family: var(--font-roboto-mono), monospace;
+  font-size: clamp(13px, 1.6vw, 16px);
+  letter-spacing: 1px;
+  color: #999;
+}
+
+.languageName {
+  font-family: var(--font-montserrat), sans-serif;
+  font-size: clamp(18px, 2.6vw, 32px);
+  font-weight: 300;
+  letter-spacing: -0.5px;
+  color: black;
+}
+
+.languageLevel {
+  font-family: var(--font-roboto-mono), monospace;
+  font-size: clamp(11px, 1.3vw, 14px);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #666;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .languagesPanel {
+    padding: 2rem 1.5rem;
+    width: 95vw;
+  }
+
+  .languageRow {
+    grid-template-columns: 3rem 1fr auto;
+    gap: 0.75rem;
+    padding: 0.6rem 0;
   }
 }

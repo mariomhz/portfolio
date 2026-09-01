@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useLenis } from "../context/LenisContext";
 
 const lerp = (start, end, factor) => start + (end - start) * factor;
 
-const ParallaxVideo = ({ src, poster, autoPlay = true, loop = true, muted = true }) => {
+const ParallaxVideo = ({ sources = [], poster, loop = true }) => {
   const videoRef = useRef(null);
   const bounds = useRef(null);
   const currentTranslateY = useRef(0);
@@ -14,23 +14,73 @@ const ParallaxVideo = ({ src, poster, autoPlay = true, loop = true, muted = true
   const lenisRef = useRef(null);
   const boundsInitialized = useRef(false);
 
+  const [shouldLoad, setShouldLoad] = useState(false);
+
   const lenis = useLenis();
   lenisRef.current = lenis;
 
   useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+    video.defaultMuted = true;
+
+    if (typeof IntersectionObserver === "undefined") {
+      setShouldLoad(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !shouldLoad) return;
+
+    video.muted = true;
+    video.load();
+    const play = () => {
+      const attempt = video.play();
+      if (attempt && typeof attempt.catch === "function") {
+        attempt.catch(() => {});
+      }
+    };
+    video.addEventListener("loadeddata", play, { once: true });
+    return () => video.removeEventListener("loadeddata", play);
+  }, [shouldLoad]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      video.style.transform = "translateY(0) scale(1.25)";
+      return;
+    }
+
     let resizeTimer = null;
 
     const updateBounds = () => {
-      if (videoRef.current) {
-        const currentLenis = lenisRef.current;
-        const scrollY = currentLenis ? currentLenis.scroll : window.scrollY;
-        const rect = videoRef.current.getBoundingClientRect();
-        bounds.current = {
-          top: rect.top + scrollY,
-          bottom: rect.bottom + scrollY,
-        };
-        boundsInitialized.current = true;
-      }
+      const currentLenis = lenisRef.current;
+      const scrollY = currentLenis ? currentLenis.scroll : window.scrollY;
+      const rect = video.getBoundingClientRect();
+      bounds.current = {
+        top: rect.top + scrollY,
+        bottom: rect.bottom + scrollY,
+      };
+      boundsInitialized.current = true;
     };
 
     const handleResize = () => {
@@ -45,19 +95,18 @@ const ParallaxVideo = ({ src, poster, autoPlay = true, loop = true, muted = true
         updateBounds();
       }
 
-      if (bounds.current && currentLenis && typeof currentLenis.scroll === 'number') {
+      if (bounds.current && currentLenis && typeof currentLenis.scroll === "number") {
         const relativeScroll = currentLenis.scroll - bounds.current.top;
         targetTranslateY.current = Math.max(-100, Math.min(100, relativeScroll * 0.2));
       }
 
-      if (videoRef.current) {
-        currentTranslateY.current = lerp(
-          currentTranslateY.current,
-          targetTranslateY.current,
-          0.1
-        );
-        videoRef.current.style.transform = `translateY(${currentTranslateY.current}px) scale(1.25)`;
-      }
+      currentTranslateY.current = lerp(
+        currentTranslateY.current,
+        targetTranslateY.current,
+        0.1
+      );
+      video.style.transform =
+        "translateY(" + currentTranslateY.current + "px) scale(1.25)";
 
       rafId.current = requestAnimationFrame(animate);
     };
@@ -72,36 +121,27 @@ const ParallaxVideo = ({ src, poster, autoPlay = true, loop = true, muted = true
     };
   }, []);
 
-  const handleLoadedData = () => {
-    if (videoRef.current) {
-      const currentLenis = lenisRef.current;
-      const scrollY = currentLenis ? currentLenis.scroll : window.scrollY;
-      const rect = videoRef.current.getBoundingClientRect();
-      bounds.current = {
-        top: rect.top + scrollY,
-        bottom: rect.bottom + scrollY,
-      };
-      boundsInitialized.current = true;
-    }
-  };
-
   return (
     <video
       ref={videoRef}
-      src={src}
       poster={poster}
-      autoPlay={autoPlay}
       loop={loop}
-      muted={muted}
       playsInline
-      onLoadedData={handleLoadedData}
+      preload="none"
+      aria-hidden="true"
+      tabIndex={-1}
       style={{
         width: "100%",
         height: "100%",
         objectFit: "cover",
         transform: "translateY(0) scale(1.25)",
       }}
-    />
+    >
+      {shouldLoad &&
+        sources.map((source) => (
+          <source key={source.src} src={source.src} type={source.type} />
+        ))}
+    </video>
   );
 };
 

@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useRef, useEffect } from "react";
+import Image from "next/image";
 import { useLenis } from "../context/LenisContext";
 
 const lerp = (start, end, factor) => start + (end - start) * factor;
 
-const ParallaxImage = ({ src, alt }) => {
-  const imageRaf = useRef(null);
+const ParallaxImage = ({ src, alt, width, height, priority = false }) => {
+  const layerRef = useRef(null);
   const bounds = useRef(null);
   const currentTranslateY = useRef(0);
   const targetTranslateY = useRef(0);
@@ -18,19 +19,25 @@ const ParallaxImage = ({ src, alt }) => {
   lenisRef.current = lenis;
 
   useEffect(() => {
+    const layer = layerRef.current;
+    if (!layer) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      layer.style.transform = "translateY(0) scale(1.25)";
+      return;
+    }
+
     let resizeTimer = null;
 
     const updateBounds = () => {
-      if (imageRaf.current) {
-        const currentLenis = lenisRef.current;
-        const scrollY = currentLenis ? currentLenis.scroll : window.scrollY;
-        const rect = imageRaf.current.getBoundingClientRect();
-        bounds.current = {
-          top: rect.top + scrollY,
-          bottom: rect.bottom + scrollY,
-        };
-        boundsInitialized.current = true;
-      }
+      const currentLenis = lenisRef.current;
+      const scrollY = currentLenis ? currentLenis.scroll : window.scrollY;
+      const rect = layer.getBoundingClientRect();
+      bounds.current = {
+        top: rect.top + scrollY,
+        bottom: rect.bottom + scrollY,
+      };
+      boundsInitialized.current = true;
     };
 
     const handleResize = () => {
@@ -45,19 +52,18 @@ const ParallaxImage = ({ src, alt }) => {
         updateBounds();
       }
 
-      if (bounds.current && currentLenis && typeof currentLenis.scroll === 'number') {
+      if (bounds.current && currentLenis && typeof currentLenis.scroll === "number") {
         const relativeScroll = currentLenis.scroll - bounds.current.top;
         targetTranslateY.current = Math.max(-100, Math.min(100, relativeScroll * 0.2));
       }
 
-      if (imageRaf.current) {
-        currentTranslateY.current = lerp(
-          currentTranslateY.current,
-          targetTranslateY.current,
-          0.1
-        );
-        imageRaf.current.style.transform = `translateY(${currentTranslateY.current}px) scale(1.25)`;
-      }
+      currentTranslateY.current = lerp(
+        currentTranslateY.current,
+        targetTranslateY.current,
+        0.1
+      );
+      layer.style.transform =
+        "translateY(" + currentTranslateY.current + "px) scale(1.25)";
 
       rafId.current = requestAnimationFrame(animate);
     };
@@ -72,29 +78,21 @@ const ParallaxImage = ({ src, alt }) => {
     };
   }, []);
 
-  const handleLoad = () => {
-    if (imageRaf.current) {
-      const currentLenis = lenisRef.current;
-      const scrollY = currentLenis ? currentLenis.scroll : window.scrollY;
-      const rect = imageRaf.current.getBoundingClientRect();
-      bounds.current = {
-        top: rect.top + scrollY,
-        bottom: rect.bottom + scrollY,
-      };
-      boundsInitialized.current = true;
-    }
-  };
-
   return (
-    <img
-      ref={imageRaf}
-      src={src}
-      alt={alt}
-      onLoad={handleLoad}
-      style={{
-        transform: "translateY(0) scale(1.25)",
-      }}
-    />
+    <div
+      ref={layerRef}
+      className="parallax-layer"
+      style={{ transform: "translateY(0) scale(1.25)" }}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        priority={priority}
+        sizes="100vw"
+      />
+    </div>
   );
 };
 
