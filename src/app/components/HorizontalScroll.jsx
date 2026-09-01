@@ -33,10 +33,10 @@ const projects = [
   {
     id: 3,
     title: "MICULTURA",
-    description: "Fullstack cultural events platform for Tenerife — my TFC (Trabajo Fin de Ciclo) for the DAW programme. Next.js 16 App Router frontend with an interactive Leaflet map and FullCalendar view, paired with a Spring Boot REST API featuring JWT auth, refresh-token rotation, and PostgreSQL persistence.",
+    description: "Cultural events platform for Tenerife, built in a pair for our DAW final project. I owned the Spring Boot API: JWT auth with refresh-token rotation, filtering and pagination over PostgreSQL, and the seeding. On the Next.js App Router frontend I built the event catalogue, the Leaflet map and the FullCalendar view. The catalogue falls back to a cached snapshot when the free backend is asleep, so the demo still works.",
     url: "https://pi-25-26-frontend-opal.vercel.app/",
-    // TODO: point at the public mirror
-    github: null,
+    github: "https://github.com/mariomhz/micultura-frontend",
+    backend: "https://github.com/mariomhz/micultura-backend",
     image: "/portraits/gradient6.webp",
     screenshot: "/projects/micultura-screenshot.webp",
     tags: ["Next.js", "TypeScript", "Spring Boot", "PostgreSQL", "JWT Auth", "Leaflet", "Tailwind CSS"],
@@ -335,7 +335,13 @@ const HorizontalScroll = () => {
                       </a>
                       {project.github && (
                         <a href={project.github} target="_blank" rel="noopener noreferrer">
-                          Source Code
+                          {project.backend ? "Frontend" : "Source Code"}
+                          <span className="sr-only"> for {project.title}</span>
+                        </a>
+                      )}
+                      {project.backend && (
+                        <a href={project.backend} target="_blank" rel="noopener noreferrer">
+                          Backend
                           <span className="sr-only"> for {project.title}</span>
                         </a>
                       )}
