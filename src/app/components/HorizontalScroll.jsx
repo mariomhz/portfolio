@@ -34,7 +34,7 @@ const projects = [
     id: 3,
     title: "MICULTURA",
     description: "Cultural events platform for Tenerife, built in a pair for our DAW final project. I owned the Spring Boot API: JWT auth with refresh-token rotation, filtering and pagination over PostgreSQL, and the seeding. On the Next.js App Router frontend I built the event catalogue, the Leaflet map and the FullCalendar view. The catalogue falls back to a cached snapshot when the free backend is asleep, so the demo still works.",
-    url: "https://pi-25-26-frontend-opal.vercel.app/",
+    url: "https://micultura.vercel.app",
     github: "https://github.com/mariomhz/micultura-frontend",
     backend: "https://github.com/mariomhz/micultura-backend",
     image: "/portraits/gradient6.webp",
