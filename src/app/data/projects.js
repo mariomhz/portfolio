@@ -80,7 +80,7 @@ export const projects = [
     slug: "mosir",
     title: "MOSIR",
     year: "2026",
-    description: "A globe you can turn to see the world the way I read it: the eight languages I speak, marked on the cities they actually come from. Three.js over a Natural Earth GeoJSON sphere, with markers placed by real lat/long, a generated starfield and damped orbital controls.",
+    description: "A globe you can turn to see the world the way I read it: the nine languages I speak or am learning, marked on the cities they actually come from. Natural Earth GeoJSON rasterised into textures as the page loads, country hover through a hidden colour map, and lighting that follows the real position of the sun.",
     url: "https://mariomhz.github.io/mosir/",
     github: "https://github.com/mariomhz/mosir",
     image: "/portraits/gradient1.avif",
@@ -108,14 +108,30 @@ export const projects = [
         {
           heading: "How it works",
           body: [
-            "The land masses come from Natural Earth GeoJSON, parsed and drawn as line segments onto a sphere of radius 2. GeoJSON gives you longitude and latitude in degrees, and Three.js wants x, y and z, so every coordinate goes through a spherical conversion before it becomes a point in the scene. The markers use that same conversion, which is what lets me place them by real lat and long instead of guessing.",
-            "On top of that there is a wireframe sphere for the grid, a solid inner sphere so you cannot see through to the far side, and a generated starfield of a thousand points for depth. Camera movement is OrbitControls with damping on and the zoom clamped between 3.5 and 5, so you can turn the globe and lean in, but you cannot fly off into space or end up inside the planet.",
+            "The first version drew the continents as line segments on an empty sphere, which read as a wireframe ball more than a planet. The same Natural Earth GeoJSON now gets rasterised into an equirectangular texture while the page loads: ocean first, then filled land, then coastlines and borders stroked over the top. One pass produces three canvases, a colour map for the surface, a black and white land mask that raises the continents slightly, and a hidden map where every country is painted its own unique colour.",
+            "GeoJSON gives you longitude and latitude in degrees, and Three.js wants x, y and z, so every coordinate goes through a spherical conversion before it becomes a point in the scene. The markers use that same conversion, which is what lets me place them by real lat and long instead of guessing.",
+            "That hidden colour map is how hovering works. Instead of building a mesh for every country and testing all of them, I raycast the sphere once, turn the point I hit back into latitude and longitude, and read a single pixel out of the map. The colour decodes to a country index, which gives me the name. It costs the same whether there are ten countries or two hundred.",
+          ],
+        },
+        {
+          heading: "The bug that deleted three continents",
+          body: [
+            "Filling the shapes broke the map the first time I tried it. Any country crossing the antimeridian arrives with its longitude jumping from +179 to -179, and drawn as a straight line that smears all the way back across the world. My first fix was to skip the shapes that did it, which quietly deleted Africa, Europe and Asia, because they are one connected outline spanning more than half the planet.",
+            "What actually works is carrying an offset along the outline so it never jumps, then drawing it three times, once shifted west and once east, so whatever runs off one edge comes back on the other. I only caught it because I rendered the flat texture out to a file and looked at it, which is now the first thing I do when something on the sphere looks wrong.",
+          ],
+        },
+        {
+          heading: "Lighting it with the real sun",
+          body: [
+            "There is no fixed light in the scene. The code works out the subsolar point, the one place on Earth where the sun is directly overhead at that exact moment, and points the light there. Open the globe at night and Europe is dark while the Pacific is in full daylight.",
+            "It comes down to about twenty lines of astronomy: the sun's position along the ecliptic, converted into equatorial coordinates, then Greenwich sidereal time subtracted, which is the step that turns a position in the sky into a position over a rotating Earth. That subtraction is also what makes solar noon land at real solar noon instead of clock noon. I checked it against the solstices before I trusted it, and it gives 23.44 degrees north in June and 23.44 south in December, which is exactly the tilt of the Earth.",
+            "The light hangs off the globe rather than the scene, so the lit half stays over the countries that are really in daylight however you turn it. The glow around the rim follows the same direction, fading on the night side and warming to orange where it crosses the terminator. That rim is the one piece of GLSL in the project, a fresnel term that rises to full strength where the surface turns away from the camera, which is exactly the edge you see.",
           ],
         },
         {
           heading: "What’s next",
           body: [
-            "I plan on making the globe more detailed and add interactive animations for a more refined experience. I also want to study optimization and make sure it renders correctly on all devices.",
+            "I plan on adding city lights for the areas that are in nighttime, so the dark half of the globe shows where people actually are instead of going flat black.",
           ],
         },
       ],
