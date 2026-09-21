@@ -49,7 +49,7 @@ const skillCategories = [
 const languages = [
   { code: "ES", name: "Spanish", level: "Native" },
   { code: "PT", name: "Portuguese", level: "Native" },
-  { code: "IT", name: "Italian", level: "Native" },
+  { code: "IT", name: "Italian", level: "C2" },
   { code: "EN", name: "English", level: "C2" },
   { code: "CA", name: "Catalan", level: "C1" },
   { code: "FR", name: "French", level: "B2" },
